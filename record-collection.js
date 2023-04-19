@@ -28,7 +28,8 @@ function updateRecords(records, id, prop, value) {
         records[id][prop] = value;
     }
     else {
-        if (!records[id].hasOwnProperty("tracks")) {
+        // if (!records[id].hasOwnProperty("tracks")) {
+        if (! ("tracks" in records[id])) {
             // create new track property if non-existant
             records[id]["tracks"] = value; 
         }

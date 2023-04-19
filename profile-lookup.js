@@ -33,7 +33,8 @@ function lookUpProfile(name, prop) {
         if (contacts[i]["firstName"] === name) {
             nameExists = true;
         }
-        if (contacts[i].hasOwnProperty(prop)) {
+        // if (contacts[i].hasOwnProperty(prop)) {
+        if (prop in contacts[i]) {
             propExists = true;
         }
     }
