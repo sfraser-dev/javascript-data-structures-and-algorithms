@@ -27,30 +27,38 @@ const contacts = [
 
 function lookUpProfile(name, prop) {
     // Only change code below this line
-    for (let i=0; i<contacts.length; i++){
-        if (contacts[i]["firstName"]===name) {
-            console.log("firstName " + name + " exists");
-            // return "No such contact.";
-            if (contacts[i].hasOwnProperty(prop)) {
-                console.log(prop + " is " + contacts[i][prop]);
-                return contacts[i][prop];
-            }
+    let nameExists = false;
+    let propExists = false;
+    for (let i = 0; i < contacts.length; i++) {
+        if (contacts[i]["firstName"] === name) {
+            nameExists = true;
         }
-        // else if (contacts[i].hasOwnProperty(prop)===false) {
-        //     return "No such property.";
-        // }
-        // else if ( (contacts[i]["firstName"]===name) && (contacts[i].hasOwnProperty(prop))) {
-        //     console.log(contacts[i]["firstName"] + " " + contacts[i][prop]);
-        //     return contacts[i][prop];
-        // }
+        if (contacts[i].hasOwnProperty(prop)) {
+            propExists = true;
+        }
+    }
+    
+    if (nameExists && propExists) {
+        for (let i=0; i<contacts.length; i++) {
+            if (contacts[i]["firstName"]===name)
+                return contacts[i][prop];
+        }
+    }
+
+    if (nameExists===false) {
+        return "No such contact";
+    }
+
+    if (nameExists===true && propExists===false) {
+        return "No such property";
     }
 
     // Only change code above this line
 }
 
-console.log("retVal is " + lookUpProfile("Kristian", "lastName"));
-// lookUpProfile("Sherlock", "likes");
-// lookUpProfile("Harry", "likes");
-// lookUpProfile("Bob", "number");
-// lookUpProfile("Bob", "potato");
-// lookUpProfile("Akira", "address");
+console.log("retVal is: " + lookUpProfile("Kristian", "lastName") + "\n"); // Vos
+console.log("retVal is: " + lookUpProfile("Sherlock", "likes") + "\n"); // ["Intriguing Cases", "Violin"]
+console.log("retVal is: " + lookUpProfile("Harry", "likes") + "\n"); // []
+console.log("retVal is: " + lookUpProfile("Bob", "number") + "\n"); // No such contact
+console.log("retVal is: " + lookUpProfile("Bob", "potato") + "\n"); // No such contact
+console.log("retVal is: " + lookUpProfile("Akira", "address") + "\n"); // No such property
