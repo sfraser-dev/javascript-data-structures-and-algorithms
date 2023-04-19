@@ -1,21 +1,21 @@
 
-function rangeOfNumbersForLoop(low, high) {
+function rangeOfNumbersForLoop(startNum, endNum) {
     let arr=[];
-    for (let i=0; i<=Math.abs(high-low); i++){
-        arr.push(low+i);
+    for (let i=0; i<=Math.abs(endNum-startNum); i++){
+        arr.push(startNum+i);
     }
     return arr;
 }
 
-function rangeOfNumbersRecursion(low, high) {
+function rangeOfNumbersRecursion(startNum, endNum) {
     // Base
-    if (high < low) {
+    if (endNum < startNum) {
         return [];
     }
     // Iterate
-    const arr = rangeOfNumbersRecursion(low, high-1);
+    const arr = rangeOfNumbersRecursion(startNum, endNum-1);
     // Body
-    arr.push(high);
+    arr.push(endNum);
     return arr;
 }
 
