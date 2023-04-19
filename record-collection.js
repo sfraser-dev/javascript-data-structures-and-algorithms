@@ -1,3 +1,5 @@
+"use strict";
+
 // Setup
 const recordCollection = {
     2548: {

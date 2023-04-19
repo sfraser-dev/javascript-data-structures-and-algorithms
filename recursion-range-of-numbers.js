@@ -1,4 +1,6 @@
 
+"use strict";
+
 function rangeOfNumbersForLoop(startNum, endNum) {
     let arr=[];
     for (let i=0; i<=Math.abs(endNum-startNum); i++){

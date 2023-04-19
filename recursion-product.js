@@ -1,3 +1,5 @@
+"use strict";
+
 function multiply (arr, n) {
     console.log("n="+n);
     if (n <= 0) {

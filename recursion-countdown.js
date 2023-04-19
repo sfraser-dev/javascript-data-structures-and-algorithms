@@ -1,3 +1,5 @@
+"use strict";
+
 function countdown(n) {
     // FOR-LOOP-TEST (recursion base): want to start adding to array on n=1, so return [] when n=0
     if (n < 1) {
