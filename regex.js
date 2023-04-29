@@ -1,5 +1,9 @@
 "use strict";
 
+// .test (boolean) and .match (return string) are applied in opposite directions
+// regEx.test(string);  // regEx test calls string
+// string.match(regEx); // string calls regex
+
 // test true or false
 let myString = "Hello, World!";
 let myRegex = /Hello/;
@@ -13,6 +17,8 @@ result = waldoRegex.test(waldoIsHiding);
 console.log("result="+result);
 
 // test true or false OR
+// note: there is no AND in regex (no need), but could hack a JS AND (let x = /regex1/ && /regex2/;)
+// note: regex is AND by default as you add more regex tests to an expression
 let petString = "James has a pet cat.";
 let petRegex = /dog|cat|bird/; // Change this line
 result = petRegex.test(petString);
@@ -72,14 +78,14 @@ result = quoteSample.match(myRegex); // Change this line
 console.log("result="+result);
 
 // match chars that occur one or more times
-// + matches preceding element one or more time
+// + quantifier matches preceding element one or more time
 let difficultSpelling = "Mississippi sssssss";
 myRegex = /s+/g; // Change this line
 result = difficultSpelling.match(myRegex);
 console.log("result="+result);// Only change code below this line
 
 // match chars that occur zero or more times: 
-// * matches preceding element zero or more times
+// * quantifier matches preceding element zero or more times
 let chewieQuote = "Aaaaaaaaaaaaaaaarrrgh!"; 
 let chewieRegex = /Aa*/; // Change this line
 result = chewieQuote.match(chewieRegex);
@@ -176,4 +182,109 @@ userCheck = /^[a-z][a-z]+\d*$/i;
 // (must be two or more numbers as two char usernames can only be letters)
 userCheck = /^[a-z][a-z]+\d*$|^[a-z]\d\d+$/i;
 result = userName.match(userCheck);
+console.log("result="+result);
+
+// \s match for whitespace (equivalent char set: [ \r\t\f\n\v])
+let sample = "Whitespace is important in separating words";
+let countWhiteSpace = /\s/g; // Change this line
+result = sample.match(countWhiteSpace);
+console.log("result="+result);
+
+// \S match for whitespace (equivalent negated char set: [^ \r\t\f\n\v])
+sample = "Whitespace is important in separating words";
+countWhiteSpace = /\S/g; // Change this line
+result = sample.match(countWhiteSpace);
+console.log("result="+result);
+
+// quantifier: {} quantity specifiers (select how many times preceding element repeated)
+let ohStr = "Ohhh no";
+let ohRegex = /Oh{3}/; // Change this line
+result = ohRegex.test(ohStr); // true for Ohhh (and less than 3 "h")
+console.log("result="+result);
+// quantifier: {x,} quantity specifiers (select minimum amount of times preceding element repeated)
+let haStr = "Hazzzzzah";
+let haRegex = /Haz{3,}ah/; // min 3, no max
+result = haRegex.test(haStr);
+console.log("result="+result);
+// quantifier: {,x} quantity specifiers (select maximum amount of times preceding element repeated)
+haStr = "Hazzzzzah";
+haRegex = /Haz{,3}ah/; // no min, max 3
+result = haRegex.test(haStr);
+console.log("result="+result);
+// quantifier: {x,y} quantity specifiers (select a mim amount of times preceding element can repeat 
+// and a maximum amount of times preceding element can repeat)
+haStr = "Hazzzzzah";
+haRegex = /Haz{3,4}ah/; // min 3, max 4 (false, z repeated 5 times)
+result = haRegex.test(haStr);
+console.log("result="+result);
+// quantifier: {x,y} quantity specifiers (select a mim amount of times preceding element can repeat 
+// and a maximum amount of times preceding element can repeat)
+haStr = "Hazzzzzah";
+haRegex = /Haz{3,7}ah/; // min 3, max 7 (true, x repeats 5 times, 3 <= x <= 7)
+result = haRegex.test(haStr);
+console.log("result="+result);
+
+// ? quantifier: preceding element appears 0 or 1 times (preceding element is optional)
+let favWord = "favorite";
+let favRegex = /favou?rite/; // Change this line
+result = favRegex.test(favWord);
+console.log("result="+result);
+// ? quantifier: preceding element appears 0 or 1 times (preceding element is optional)
+favWord = "colour";
+favRegex = /colou?r/; // Change this line
+result = favRegex.test(favWord);
+console.log("result="+result);
+
+// lookaheads (?=...) positive lookahead for ... existing, ... not matched though
+// lookaheads (?!...) negative lookahead for ... not existing, ... not matched though
+let sampleWord = "astronaut";
+let pwRegex = /astro(?=naut)/; // Change this line
+result = sampleWord.match(pwRegex); // returns "astro" (since "naut" exists ahead in the string)
+console.log("result="+result);
+// naively simple password checker that looks for between 3 and 6 characters and at least one number
+let password = "abc123";
+let passCheckRegex = /(?=\w{3,6})(?=\D*\d)/;
+result = passCheckRegex.test(password);
+result = /(?=\w{3,6})(?=\D*\d)/.test(password); // can do the regex like this too
+console.log("result="+result);
+// match passwords that are greater than 5 characters long, and have two consecutive digits
+//-- Should pass
+// sampleWord = "bana12";
+// sampleWord = "abc123";
+// sampleWord = "8pass99";
+// sampleWord = "astr1on11aut";
+//-- Should fail
+// sampleWord = "astronaut";
+sampleWord = "banan1";
+// sampleWord = "12345";
+// sampleWord = "1a2bcde";
+// need to check for \D* too, allows for possible non-digits before the digits
+passCheckRegex = /(?=\w{6,})(?=\D*\d{2,})/; 
+result = passCheckRegex.test(sampleWord);
+console.log("result="+result);
+
+// Groups of chars ()... checks for a group of particular chars in order (not just individual chars in [])
+let testStr = "Pumpkin";
+result = /P(umpk|engu)in/.test(testStr);
+console.log("result="+result);
+
+// capture groups reuse patterns via temporary variables (starts counting at 1)
+let repeatStr = "row row row your boat";
+let repeatRegex = /(\w+) \1 \1/;
+result = repeatStr.match(repeatRegex); // Returns ["row row row", "row"]
+console.log("result="+result);
+
+// search and replace using capture groups (very powerful)
+// capture the words separated by a space ($1 & $2) and use JS replace() to replace them
+result = "Code Camp".replace(/(\w+)\s(\w+)/, "$2 $1");
+console.log("result="+result);
+
+// remove white space from start and end
+let hello = "   Hello, World!  ";
+let wsRegex = /\S+\s\S+/g; // grab non white space words
+result = hello.match(wsRegex); // Change this line
+console.log("result="+result);
+// replace the whitespace via JS replace()
+wsRegex = /^\s+|\s+$/g; // 
+result = hello.replace(wsRegex, ""); // Change this line
 console.log("result="+result);
