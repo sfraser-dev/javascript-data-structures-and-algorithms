@@ -114,8 +114,8 @@ function filteredArray(arr, elem) {
 }
 console.log(filteredArray([[3, 2, 3], [1, 6, 3], [3, 13, 26], [19, 3, 9]], 2));
 
-// add key-value pairs to JS objects
-console.log("--add key-value pairs to JS objects");
+// add key-value pairs (properties) to JS objects
+console.log("--add key-value pairs (properties) to JS objects");
 let foods = {
     apples: 25,
     oranges: 32,
@@ -123,6 +123,36 @@ let foods = {
 };
 foods.grapes = 35; // add grapes key to object (literally)
 let bananaStringVariable = "bananas";
-foods[bananaStringVariable]=13; // use bracket notation with variables
+foods[bananaStringVariable] = 13; // use bracket notation with variables
 foods.strawberries = 27;
+console.log(foods);
+
+// access object keys via bracket notation to change object properties
+console.log("--access object keys via bracket notation to change object properties");
+foods = {
+    apples: 25,
+    oranges: 32,
+    plums: 28,
+    bananas: 13,
+    grapes: 35,
+    strawberries: 27
+};
+function checkInventory(scannedItem) {
+    return foods[scannedItem];
+}
+console.log("amount of apples in object is " + checkInventory("apples"));
+
+// use the delete keyword to remove object properties
+console.log("--use the delete keyword to remove object properties");
+foods = {
+    apples: 25,
+    oranges: 32,
+    plums: 28,
+    bananas: 13,
+    grapes: 35,
+    strawberries: 27
+};
+delete foods.oranges;
+delete foods.plums;
+delete foods.strawberries;
 console.log(foods);
