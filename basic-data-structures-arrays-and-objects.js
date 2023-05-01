@@ -156,3 +156,95 @@ delete foods.oranges;
 delete foods.plums;
 delete foods.strawberries;
 console.log(foods);
+
+// check if object has a property via hasOwnProperty() or in
+console.log("---check if object has a property via hasOwnProperty() or in");
+let users = {
+    Alan: {
+        age: 27,
+        online: true
+    },
+    Jeff: {
+        age: 32,
+        online: true
+    },
+    Sarah: {
+        age: 48,
+        online: true
+    },
+    Ryan: {
+        age: 19,
+        online: true
+    }
+};
+function isEveryoneHere_in(userObj) {
+    if ("Alan" in userObj && "Jeff" in userObj && "Sarah" in userObj && "Ryan" in userObj) {
+        return "Everyone is here";
+    } else {
+        return "Not everyone is here";
+    }
+}
+console.log("'name' in userObj: " + isEveryoneHere_in(users));
+// Using "userObj.hasOwnProperty("Alan").. ESLint says this is not recommended
+// we can use use Object.hasOwn(userObj,"Alan") instead (ESLint happy, FCC interpreter happy, node happy)
+function isEveryoneHere_hasProperty(userObj) {
+    if (Object.hasOwn(userObj, "Alan") && Object.hasOwn(userObj, "Jeff") &&
+        Object.hasOwn(userObj, "Sarah") && Object.hasOwn(userObj, "Ryan")) {
+        return "Everyone is here";
+    } else {
+        return "Not everyone is here";
+    }
+}
+console.log("Object.hasOwn(userObj,'name'): " + isEveryoneHere_hasProperty(users));
+
+// use 'for .. in ..' to iterate through object property keys, count online users
+// (Oh bin! Obin; affray! of array)
+console.log("--use 'for .. in ..' to iterate through object property keys, count online users");
+users = {
+    Alan: {
+        online: false
+    },
+    Jeff: {
+        online: true
+    },
+    Sarah: {
+        online: false
+    }
+};
+function countOnline(usersObj) {
+    let count = 0;
+    for (let user in usersObj) {
+        if (usersObj[user]["online"] === true) {
+            count++;
+        }
+    }
+    return count;
+}
+console.log(countOnline(users));
+
+// using Object.keys to get an array containing all the properties in an object
+console.log("--using Object.keys to get an array containing all the properties in an object");
+users = {
+    Alan: {
+        age: 27,
+        online: false
+    },
+    Jeff: {
+        age: 32,
+        online: true
+    },
+    Sarah: {
+        age: 48,
+        online: false
+    },
+    Ryan: {
+        age: 19,
+        online: true
+    }
+};
+function getArrayOfUsers(obj) {
+    const keys = Object.keys(obj);
+    return keys;
+}
+console.log(getArrayOfUsers(users));
+
