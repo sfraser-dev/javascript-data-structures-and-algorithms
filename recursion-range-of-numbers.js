@@ -1,4 +1,3 @@
-
 "use strict";
 
 function rangeOfNumbersForLoop(startNum, endNum) {

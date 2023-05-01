@@ -1,3 +1,5 @@
+"use strict";
+
 // Constructor function for Person objects
 // Note: vscode says that the Constructor Function may be converted to a class declaration
 function Person(first, last, age, eye) {
