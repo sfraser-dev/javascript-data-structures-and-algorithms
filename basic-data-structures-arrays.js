@@ -62,8 +62,67 @@ function copyMachine(arr, num) {
 console.log(copyMachine([true, false, true], 2));
 
 // spread operator for concatenating array
-let arr1 = [1,2,3];
-let arr2 = [4,5,6];
-arr1=[...arr1, ...arr2];
-console.log("arr1="+arr1);
+console.log("--spread operator for concatenating array");
+let arr1 = [1, 2, 3];
+let arr2 = [4, 5, 6];
+console.log("arr1=" + arr1);
+console.log("arr2=" + arr2);
+arr1 = [...arr1, ...arr2];
+console.log("arr1 concatenated=" + arr1);
 
+// spread operator allows easy insertion of array into another array
+console.log("--spread operator allows easy insertion of array into another array");
+function spreadOut() {
+    let fragment = ["to", "code"];
+    let sentence = ["learning", ...fragment, "is", "fun"];
+    return sentence;
+}
+console.log(spreadOut());
+
+// using indexOf() to quickly check if particular element exists in an array
+console.log("--using indexOf() to quickly check if particular element exists in an array");
+function quickCheck(arr, elem) {
+    let val = arr.indexOf(elem); // arr.includes() is boolean version of this
+    if (val < 0) {
+        return `${elem} is not in the array`;
+    } else {
+        return `${elem} is at index ${val} in the array`;
+    }
+}
+console.log(quickCheck(["squash", "onions", "shallots"], "mushrooms"));
+console.log(quickCheck(["squash", "onions", "shallots"], "onions"));
+
+// for loop, remove nested array if it contains "elem"
+console.log("--for loop, remove nested array if it contains 'elem'");
+function filteredArray(arr, elem) {
+    let newArr = [];
+    let found = false;
+    // outer array
+    for (let i = 0; i < arr.length; i++) {
+        // inner array
+        for (let j = 0; j < arr[i].length; j++) {
+            if (arr[i][j] === elem) {
+                found = true;
+            }
+        }
+        if (found === false) {
+            newArr.push(arr[i]);
+        }
+        found = false;
+    }
+    return newArr;
+}
+console.log(filteredArray([[3, 2, 3], [1, 6, 3], [3, 13, 26], [19, 3, 9]], 2));
+
+// add key-value pairs to JS objects
+console.log("--add key-value pairs to JS objects");
+let foods = {
+    apples: 25,
+    oranges: 32,
+    plums: 28
+};
+foods.grapes = 35; // add grapes key to object (literally)
+let bananaStringVariable = "bananas";
+foods[bananaStringVariable]=13; // use bracket notation with variables
+foods.strawberries = 27;
+console.log(foods);
