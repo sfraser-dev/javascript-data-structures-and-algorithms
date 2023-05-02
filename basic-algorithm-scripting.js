@@ -98,7 +98,7 @@ function repeatStringNumTimes(str, num) {
     if (num < 0) {
         return newStr;
     }
-    for (let i=0; i<num; i++) {
+    for (let i = 0; i < num; i++) {
         newStr += str;
     }
     return newStr;
@@ -108,3 +108,29 @@ console.log("repeat * 5 = " + repeatStringNumTimes("*", 5));
 console.log("repeat abc 3 = " + repeatStringNumTimes("abc", 3));
 console.log("repeat abc 4 = " + repeatStringNumTimes("abc", 4));
 console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
+
+// truncate a string (try without for loop)
+// ARRAY: splice (change original) and slice (original unaltered) are for arrays
+// ARRAY: push/pop for arrays
+// ARRAY2STR: split string into array of substrings split(" ") or characters split(""), 
+// STR2ARR: join all elements in an array to a single string
+// STRING: .concat()/+ for strings
+console.log("--truncate a string");
+function truncateString(str, num) {
+    if (str.length > num) {
+        // split string into an array of individual chars
+        let elementsArray = str.split("");
+        // slice array from 0 to num (not inclusive of num)
+        let truncatedElementsArray = elementsArray.slice(0,num);
+        // join elements in array into a single string
+        let truncatedStr = truncatedElementsArray.join("");
+        // append three dots to the end of the truncated string
+        truncatedStr += "...";
+        return truncatedStr;
+    } else {
+        return str;
+    }
+}
+console.log("first 8: " + truncateString("A-tisket a-tasket A green and yellow basket", 8));
+console.log("first 11: " + truncateString("Peter Piper picked a peck of pickled peppers", 11));
+console.log("first 5: " + truncateString("Hello World!", 5));
