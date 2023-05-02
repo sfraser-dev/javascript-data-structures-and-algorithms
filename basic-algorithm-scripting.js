@@ -109,13 +109,15 @@ console.log("repeat abc 3 = " + repeatStringNumTimes("abc", 3));
 console.log("repeat abc 4 = " + repeatStringNumTimes("abc", 4));
 console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 
-// truncate a string (try without for loop)
+// truncate a string (I'm trying it without a for loop - practice JS methods)
 // ARRAY: splice (change original) and slice (original unaltered) are for arrays
 // ARRAY: push/pop for arrays
-// ARRAY2STR: split string into array of substrings split(" ") or characters split(""), 
-// STR2ARR: join all elements in an array to a single string
-// STRING: .concat()/+ for strings
-console.log("--truncate a string");
+// ARRAY2STRING: split string into array of substrings split(" ") or characters split(""), 
+// STRING2ARRAY: join all elements in an array to a single string
+// STRINGANDARRAY: concat: let fullName = firstName.concat(" "+lastName);
+// STRINGANDARRAY: concat: let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6]
+// STRING: + (concat shorthand)
+console.log("--truncate a string using JS methods");
 function truncateString(str, num) {
     if (str.length > num) {
         // split string into an array of individual chars
