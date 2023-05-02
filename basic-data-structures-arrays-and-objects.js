@@ -247,4 +247,5 @@ function getArrayOfUsers(obj) {
     return keys;
 }
 console.log(getArrayOfUsers(users));
+// returns [ 'Alan', 'Jeff', 'Sarah', 'Ryan' ]
 
