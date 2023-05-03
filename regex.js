@@ -3,6 +3,8 @@
 // .test (boolean) and .match (return string) are applied in opposite directions
 // regEx.test(string);  // regEx test calls string
 // string.match(regEx); // string calls regex
+// string.replace(regEx, "replacementString")
+// string.replace(/(\w+)\s(\w+)/, "$2 $1") // swap words around with capture groups 
 
 // test true or false
 let myString = "Hello, World!";
@@ -288,3 +290,6 @@ console.log("result="+result);
 wsRegex = /^\s+|\s+$/g; // 
 result = hello.replace(wsRegex, ""); // Change this line
 console.log("result="+result);
+
+// Lookaheads to behave like AND (But the AND operator is implicit in the RegExp syntax)
+// /^(?=.*word1)(?=.*word2)(?=.*word3).*$/m

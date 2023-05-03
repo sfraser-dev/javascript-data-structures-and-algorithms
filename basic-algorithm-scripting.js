@@ -76,6 +76,7 @@ console.log(result);
 // confirm the ending of a string (don't use built in .endsWith() method)
 console.log("--confirm the ending of a string");
 function confirmEnding(str, target) {
+    // regex with user parameter
     let myRegex = new RegExp(`${target}$`)
     return myRegex.test(str);
 }
@@ -109,21 +110,35 @@ console.log("repeat abc 3 = " + repeatStringNumTimes("abc", 3));
 console.log("repeat abc 4 = " + repeatStringNumTimes("abc", 4));
 console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 
+// ARRAY: concat: (immutable) let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6]
+// ARRAY: slice (immutable) new=arr.slice(start, end) // start(0) & end(end) optional
+// ARRAY: splice (mutable) arr.splice(start, amountToDelete, 13, 14); // 13,14 added
+// ARRAY: reverse (mutable) arr.reverse(), reverse order of elements in an array
+// ARRAY: toReverse (immutable) new=arr.toReverse(), reverse order of elements in an array
+// ARRAY: pop (off of end) push (on to end) (mutable) 
+// ARRAY: unshift (off of start) shift (on to start) (mutable)
+// ARRAY**: join (immutable), newStr=arr.join(seperatorToUseInNewStr) 
+//--
+// STRING: concat: (immutable) fullName=firstName.concat(" "+lastName); // "+" str concat shorthand
+// STRING: slice (immutable) newStr=str.slice(start,end), up to end, not incluing (==substring)
+// STRING: substring (immutable) newStr=str.substring(start,end), up to end, not including (==slice)
+// STRING**: newArr=str.split(separator) (immutable) // arr words split(" "), arr of chars split("")
+//--
+// STRING-REVERSE: str.split("").reverse().join("") // split str to arr, rev arr, join arr to str
+//--
+// Notes: 
+// all strings in JS are immutable (all primitives in JS are immutable)
+// string.slice == string.substring (tiny diff in edge cases), bad design on JS part
+// string.split can take a regular expression as input
+//
 // truncate a string (I'm trying it without a for loop - practice JS methods)
-// ARRAY: splice (change original) and slice (original unaltered) are for arrays
-// ARRAY: push/pop for arrays
-// ARRAY2STRING: split string into array of substrings split(" ") or characters split(""), 
-// STRING2ARRAY: join all elements in an array to a single string
-// STRINGANDARRAY: concat: let fullName = firstName.concat(" "+lastName);
-// STRINGANDARRAY: concat: let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6]
-// STRING: + (concat shorthand)
 console.log("--truncate a string using JS methods");
 function truncateString(str, num) {
     if (str.length > num) {
         // split string into an array of individual chars
         let elementsArray = str.split("");
         // slice array from 0 to num (not inclusive of num)
-        let truncatedElementsArray = elementsArray.slice(0,num);
+        let truncatedElementsArray = elementsArray.slice(0, num);
         // join elements in array into a single string
         let truncatedStr = truncatedElementsArray.join("");
         // append three dots to the end of the truncated string
@@ -136,3 +151,76 @@ function truncateString(str, num) {
 console.log("first 8: " + truncateString("A-tisket a-tasket A green and yellow basket", 8));
 console.log("first 11: " + truncateString("Peter Piper picked a peck of pickled peppers", 11));
 console.log("first 5: " + truncateString("Hello World!", 5));
+let strRevTest = "String Reverse Test";
+console.log(strRevTest.split("").reverse().join(""));
+
+// truth test function (truth test function passed as argument)
+console.log("--truth test function (truth test function passed as argument)");
+function findElement(arr, func) {
+    let num = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (func(arr[i])) {
+            return arr[i];
+        }
+    }
+    return undefined;
+}
+console.log(findElement([1, 2, 3, 4], num => num % 2 === 0));
+
+// LONG-WINDED
+// capitalise all the first letters in a sentence (alsorest of the sentence to lower case)
+// (uses split, push, slice, join, charAt, toUpperCase and toLowerCase)
+console.log("--capitalise all the first letters in a sentence (rest of sentence to lower case)");
+function titleCase(str) {
+    // split sentence into individual words
+    let words = str.split(" ");
+    let newStrArr = [];
+    for (let i = 0; i < words.length; i++) {
+        // push the capitalised first letter to the newStr array
+        newStrArr.push(words[i].charAt(0).toUpperCase());
+        // push the rest of the word to newStrArr via string.split(1 to end)
+        let restOfWord = words[i].slice(1)
+        newStrArr.push(restOfWord.toLowerCase());
+        // add a space after the word
+        newStrArr.push(" ");
+    }
+    // finally convert the array of words (with spaces) to a string via arr.join
+    let newStr = newStrArr.join("");
+    // remove any whitepspace from front or end (with trim or with .replace(RegEx,"")
+    // let newStrTrimmed = newStr.trim(); // see also, trimStart, trimEnd, padStart, padEnd
+    let newStrTrimmed = newStr.replace(/^\s+|\s+$/gm, "");  // gm modifier is global and multiline
+    return newStrTrimmed;
+}
+console.log(titleCase("I'm a little tea pot"));
+console.log(titleCase("sHoRt AnD sToUt"));
+console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"));
+
+// AGAIN USING REGEX:
+// capitalise all the first letters in a sentence (alsorest of the sentence to lower case)
+// RegEx explanation
+// Find all non-whitespace characters (\S)
+// At the beginning of string (^) or after any whitespace character (\s)
+console.log("--AGAIN: capitalise all the first letters in a sentence (rest of sentence to lower case)");
+function titleCase(str) {
+    return str
+        .toLowerCase()
+        .replace(/(^|\s)\S/g, L => L.toUpperCase());
+}
+console.log(titleCase("I'm a little tea pot"));
+console.log(titleCase("sHoRt AnD sToUt"));
+console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"));
+
+// implant arr1 into arr2 starting at index n (leave original arrays unchanged)
+console.log("implant arr1 into arr2 starting at index n (leave original arrays unchanged)");
+function frankenSplice(arr1, arr2, n) {
+    // copy arr2
+    let newArr = [...arr2];
+    // splice arr1 into arr2 starting at position n and deleting 0 elements
+    newArr.splice(n,0,...arr1);
+    return newArr;
+}
+console.log(frankenSplice([1, 2, 3], [4, 5, 6], 1));
+console.log(frankenSplice([1, 2], ["a", "b"], 1));
+console.log(frankenSplice(["claw", "tentacle"], ["head", "shoulders", "knees", "toes"], 2));
+console.log(frankenSplice([1, 2, 3, 4], [], 0));
+
