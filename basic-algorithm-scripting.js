@@ -327,12 +327,13 @@ chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2)
 // USING WHILE/SPLICE: split "arr" into chunks of "size" and return as 2d array
 console.log("--WHILE/SPLICE: split arr into chunks of num and return as 2d array");
 function chunkArrayInGroups2(arr, size) {
+    let arrCopy = [...arr];
     let bigArr = [];
     while (arr.length > 0) {
         // splice(startIndex, AmountToDelete, optionalAddIn, optionalAddIn...)
         bigArr.push(arr.splice(0,size));
     }
-    process.stdout.write("arr: " + arr + " size:" + size + " ");
+    process.stdout.write("arr: " + arrCopy + " size:" + size + " ");
     console.log(bigArr);
     return bigArr;
 }
@@ -343,6 +344,7 @@ chunkArrayInGroups2([0, 1, 2, 3, 4, 5], 2)
 // USING WHILE/FOR/SHIFT: split "arr" into chunks of "size" and return as 2d array
 console.log("--WHILE/FOR/SHIFT: split arr into chunks of num and return as 2d array");
 function chunkArrayInGroups3(arr, size) {
+    let arrCopy = [...arr];
     let bigArr=[];
     let littleArr=[];
     while (arr.length > 0) {
@@ -352,7 +354,7 @@ function chunkArrayInGroups3(arr, size) {
         bigArr.push(littleArr);
         littleArr=[];
     }
-    process.stdout.write("arr: " + arr + " size:" + size + " ");
+    process.stdout.write("arr: " + arrCopy + " size:" + size + " ");
     console.log(bigArr);
     return bigArr;
 }
