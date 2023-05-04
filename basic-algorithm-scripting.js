@@ -110,13 +110,15 @@ console.log("repeat abc 3 = " + repeatStringNumTimes("abc", 3));
 console.log("repeat abc 4 = " + repeatStringNumTimes("abc", 4));
 console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 
-// ARRAY: concat: (immutable) let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6]
+// ARRAY: concat: (immutable) let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6], flat single array
 // ARRAY: slice (immutable) new=arr.slice(start, end) // start(0) & end(end) optional
 // ARRAY: splice (mutable) arr.splice(start, amountToDelete, 13, 14); // 13,14 added
 // ARRAY: reverse (mutable) arr.reverse(), reverse order of elements in an array
 // ARRAY: toReverse (immutable) new=arr.toReverse(), reverse order of elements in an array
-// ARRAY: pop (off of end) push (on to end) (mutable) 
-// ARRAY: unshift (off of start) shift (on to start) (mutable)
+// ARRAY: pop (off of end) // for pushed arrays, [1,2,3].pop([4,5,6]) // [[1,2,3],[4,5,6]] not flat
+// ARRAY: push (on to end) (mutable) 
+// ARRAY: unshift (on to start)
+// ARRAY: shift (off of start) (mutable)
 // ARRAY**: join (immutable), newStr=arr.join(seperatorToUseInNewStr) 
 //--
 // STRING: concat: (immutable) fullName=firstName.concat(" "+lastName); // "+" str concat shorthand
@@ -298,29 +300,62 @@ console.log("true: " + mutation(["Alien", "line"]));
 console.log("false: " + mutation(["hello", "neo"]));
 
 
-// split arr into chunks of size and return as 2d array
-console.log("--split arr into chunks of num and return as 2d array");
+// USING WHILE/FOR: split "arr" into chunks of "size" and return as 2d array
+console.log("--WHILE/FOR: split arr into chunks of num and return as 2d array");
 function chunkArrayInGroups(arr, size) {
-    let bigArr=[];
-    let littleArr=[];
+    let bigArr = [];
+    let littleArr = [];
     let arrCounter = 0;
     while (true) {
-        for (let i=0; i<size; i++) {
+        for (let i = 0; i < size; i++) {
             littleArr.push(arr[arrCounter++]);
-            if (arrCounter===arr.length) {
-                break;
-            }
+            if (arrCounter === arr.length) { break; }
         }
         // push appends the little arrays into the big array, concat just creates one big array
         bigArr.push(littleArr);
-        console.log(bigArr);
-        littleArr=[];
-        if (arrCounter===arr.length) {
-            break;
-        }
+        littleArr = [];
+        if (arrCounter === arr.length) { break; };
     }
+    process.stdout.write("arr: " + arr + " size:" + size + " ");
+    console.log(bigArr);
     return bigArr;
 }
-chunkArrayInGroups(["a", "b", "c", "d"], 2)
+chunkArrayInGroups(["a", "b", "c", "d"], 2);
 chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3)
 chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2)
+
+// USING WHILE/SPLICE: split "arr" into chunks of "size" and return as 2d array
+console.log("--WHILE/SPLICE: split arr into chunks of num and return as 2d array");
+function chunkArrayInGroups2(arr, size) {
+    let bigArr = [];
+    while (arr.length > 0) {
+        // splice(startIndex, AmountToDelete, optionalAddIn, optionalAddIn...)
+        bigArr.push(arr.splice(0,size));
+    }
+    process.stdout.write("arr: " + arr + " size:" + size + " ");
+    console.log(bigArr);
+    return bigArr;
+}
+chunkArrayInGroups2(["a", "b", "c", "d"], 2);
+chunkArrayInGroups2([0, 1, 2, 3, 4, 5], 3)
+chunkArrayInGroups2([0, 1, 2, 3, 4, 5], 2)
+
+// USING WHILE/FOR/SHIFT: split "arr" into chunks of "size" and return as 2d array
+console.log("--WHILE/FOR/SHIFT: split arr into chunks of num and return as 2d array");
+function chunkArrayInGroups3(arr, size) {
+    let bigArr=[];
+    let littleArr=[];
+    while (arr.length > 0) {
+        for (let i=0; i<size; i++) {
+            littleArr.push(arr.shift());
+        }
+        bigArr.push(littleArr);
+        littleArr=[];
+    }
+    process.stdout.write("arr: " + arr + " size:" + size + " ");
+    console.log(bigArr);
+    return bigArr;
+}
+chunkArrayInGroups3(["a", "b", "c", "d"], 2);
+chunkArrayInGroups3([0, 1, 2, 3, 4, 5], 3)
+chunkArrayInGroups3([0, 1, 2, 3, 4, 5], 2)
