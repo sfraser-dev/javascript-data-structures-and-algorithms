@@ -216,7 +216,7 @@ function frankenSplice(arr1, arr2, n) {
     // copy arr2
     let newArr = [...arr2];
     // splice arr1 into arr2 starting at position n and deleting 0 elements
-    newArr.splice(n,0,...arr1);
+    newArr.splice(n, 0, ...arr1);
     return newArr;
 }
 console.log(frankenSplice([1, 2, 3], [4, 5, 6], 1));
@@ -224,3 +224,53 @@ console.log(frankenSplice([1, 2], ["a", "b"], 1));
 console.log(frankenSplice(["claw", "tentacle"], ["head", "shoulders", "knees", "toes"], 2));
 console.log(frankenSplice([1, 2, 3, 4], [], 0));
 
+// Remove all falsy values from an array. Don't mutate array.
+// Falsy values in JavaScript are: false, null, 0, "", undefined, and NaN.
+console.log("--Remove all falsy values from an array. Don't mutate array.");
+function bouncer(arr) {
+    let newArr = [];
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] ? newArr.push(arr[i]) : null;
+    }
+    return newArr;
+}
+console.log(bouncer([7, "ate", "", false, 9]));
+console.log(bouncer(["a", "b", "c"]));
+console.log(bouncer([false, null, 0, NaN, undefined, ""]));
+console.log(bouncer([null, NaN, 1, 2, undefined]));
+
+// sort array then return insert position of num to maintain correct order of numbers 
+console.log("--sort array then return insert position of num to maintain correct order of numbers");
+function getIndexToIns(arr, num) {
+
+    // sort the array (by number, not by letters!)
+    arr.sort ((a, b) => a - b);
+
+    // write info to console without a newline
+    process.stdout.write("sorted array: "+arr+", num is: "+num+", array insert position is: ");
+
+    // check for empty array
+    if (arr.length===0) {
+        return 0;
+    }
+
+    // check against largest number (at end of the sorted array)
+    if (num > arr[arr.length-1]) {
+        return arr.length;
+    }
+
+    // check against rest of the sorted numbers in the array
+    for (let i=0; i<arr.length; i++) {
+        if (num <= arr[i]) {
+            return i;
+        }
+    }
+}
+console.log(getIndexToIns([10, 20, 30, 40, 50], 35));
+console.log(getIndexToIns([10, 20, 30, 40, 50], 30));
+console.log(getIndexToIns([40, 60], 50));
+console.log(getIndexToIns([3, 10, 5], 3));
+console.log(getIndexToIns([5, 3, 20, 3], 5));
+console.log(getIndexToIns([2, 20, 10], 19));
+console.log(getIndexToIns([2, 5, 10], 15));
+console.log(getIndexToIns([], 1));
