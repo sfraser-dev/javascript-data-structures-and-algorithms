@@ -293,3 +293,23 @@ console.log("result="+result);
 
 // Lookaheads to behave like AND (But the AND operator is implicit in the RegExp syntax)
 // /^(?=.*word1)(?=.*word2)(?=.*word3).*$/m
+
+// from basic-algorithm-scripting (regex with user parameter)
+// confirm the ending of a string (don't use built in .endsWith() method)
+console.log("--confirm the ending of a string");
+function confirmEnding(str, target) {
+    // regex with user parameter
+    let myRegex = new RegExp(`${target}$`)
+    return myRegex.test(str);
+}
+// should return true
+console.log("true result? = " + confirmEnding("Bastian", "n"));
+console.log("true result? = " + confirmEnding("He has to give me a new name", "name"));
+console.log("true result? = " + confirmEnding("Open sesame", "same"));
+console.log("true result? = " + confirmEnding("Abstraction", "action"));
+// should return false
+console.log("false result? = " + confirmEnding("Connor", "n"));
+console.log("false result? = " + confirmEnding("Walking on water and developing software from a specification are easy if both are frozen", "specification"));
+console.log("false result? = " + confirmEnding("Open sesame", "sage"));
+console.log("false result? = " + confirmEnding("Open sesame", "game"));
+console.log("false result? = " + confirmEnding("If you want to save our world, you must hurry. We dont know how much longer we can withstand the nothing", "mountain"));
