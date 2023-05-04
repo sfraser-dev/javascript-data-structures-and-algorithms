@@ -130,6 +130,7 @@ console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 // all strings in JS are immutable (all primitives in JS are immutable)
 // string.slice == string.substring (tiny diff in edge cases), bad design on JS part
 // string.split can take a regular expression as input
+// arr.sort((a,b) => a-b); // need the arrow function as it sorts the array alphabetically by default
 //
 // truncate a string (I'm trying it without a for loop - practice JS methods)
 console.log("--truncate a string using JS methods");
@@ -244,23 +245,23 @@ console.log("--sort array then return insert position of num to maintain correct
 function getIndexToIns(arr, num) {
 
     // sort the array (by number, not by letters!)
-    arr.sort ((a, b) => a - b);
+    arr.sort((a, b) => a - b);
 
     // write info to console without a newline
-    process.stdout.write("sorted array: "+arr+", num is: "+num+", array insert position is: ");
+    process.stdout.write("sorted array: " + arr + ", num is: " + num + ", array insert position is: ");
 
     // check for empty array
-    if (arr.length===0) {
+    if (arr.length === 0) {
         return 0;
     }
 
     // check against largest number (at end of the sorted array)
-    if (num > arr[arr.length-1]) {
+    if (num > arr[arr.length - 1]) {
         return arr.length;
     }
 
     // check against rest of the sorted numbers in the array
-    for (let i=0; i<arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         if (num <= arr[i]) {
             return i;
         }
@@ -274,3 +275,52 @@ console.log(getIndexToIns([5, 3, 20, 3], 5));
 console.log(getIndexToIns([2, 20, 10], 19));
 console.log(getIndexToIns([2, 5, 10], 15));
 console.log(getIndexToIns([], 1));
+
+// does first string contain all the letters in the second string?
+console.log("--does first string contain all the letters in the second string?");
+function mutation(arr) {
+    let firstStr = arr[0].toLowerCase();
+    let secondStr = arr[1].toLowerCase();
+    for (let i = 0; i < secondStr.length; i++) {
+        if (new RegExp(`${secondStr[i]}+`).test(firstStr) === false) { // using regex with variable
+            // if (firstStr.includes(secondStr[i]) === false) { // using str.includes()
+            return false;
+        }
+    }
+    return true;
+}
+console.log("false: " + mutation(["hello", "hey"]));
+console.log("true: " + mutation(["hello", "Hello"]));
+console.log("true: " + mutation(["zyxwvutsrqponmlkjihgfedcba", "qrstu"]));
+console.log("true: " + mutation(["Mary", "Army"]));
+console.log("true: " + mutation(["Mary", "Aarmy"]));
+console.log("true: " + mutation(["Alien", "line"]));
+console.log("false: " + mutation(["hello", "neo"]));
+
+
+// split arr into chunks of size and return as 2d array
+console.log("--split arr into chunks of num and return as 2d array");
+function chunkArrayInGroups(arr, size) {
+    let bigArr=[];
+    let littleArr=[];
+    let arrCounter = 0;
+    while (true) {
+        for (let i=0; i<size; i++) {
+            littleArr.push(arr[arrCounter++]);
+            if (arrCounter===arr.length) {
+                break;
+            }
+        }
+        // push appends the little arrays into the big array, concat just creates one big array
+        bigArr.push(littleArr);
+        console.log(bigArr);
+        littleArr=[];
+        if (arrCounter===arr.length) {
+            break;
+        }
+    }
+    return bigArr;
+}
+chunkArrayInGroups(["a", "b", "c", "d"], 2)
+chunkArrayInGroups([0, 1, 2, 3, 4, 5], 3)
+chunkArrayInGroups([0, 1, 2, 3, 4, 5], 2)
