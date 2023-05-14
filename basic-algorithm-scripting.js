@@ -330,7 +330,7 @@ function chunkArrayInGroups2(arr, size) {
     let arrCopy = [...arr];
     let bigArr = [];
     while (arr.length > 0) {
-        // splice(startIndex, AmountToDelete, optionalAddIn, optionalAddIn...)
+        // splice(startIndex, AmountToRemove, optionalAddIn, optionalAddIn...)
         bigArr.push(arr.splice(0,size));
     }
     process.stdout.write("arr: " + arrCopy + " size:" + size + " ");
