@@ -1,5 +1,19 @@
 "use strict";
 
+// Classes are syntactical sugar added in ECMAScript 6 over the existing
+// prototype based inheritance. Classes provide a much simplier and cleaner
+// syntax to create objects and deal with inheritance. 
+// See the ES6 section entitled "Use class Syntax to Define a Constructor Function"
+
+// 1. objects
+// 2. constructor functions
+// 3. instanceof keyword (fido instanceof Dog - returns true or false)
+// 4. hasOwnProperty() method (own property, not a (shared) prototype property)
+// 5. Dog3.prototype.numLegs = 4; constructor functions have the prototype property,
+//                                these prototype properties are shared amoung all
+//                                instances of the object (all instances have same value)
+// 6: prototype properties of constructor functions can be set all at once via an object  
+
 // Dog object
 console.log("--- Dog object");
 let dog = {
@@ -38,7 +52,7 @@ for (let prop in terrier) {
     console.log(terrier[prop]);
 }
 
-// "Instanceof" for objects created from constructor functions (true or false)
+// "instanceof" keyword for objects created from constructor functions (true or false)
 console.log("\n--- Instanceof: is instantiated object and 'instanceof' a particular constructor function?");
 function House(numBedrooms) {
     this.numBedrooms = numBedrooms;
@@ -84,7 +98,7 @@ Dog4.prototype.numLegs = 4;
 let dalmation = new Dog4("Snoopy");
 let ownProperties = [];
 let prototypeProperties = [];
-for (let prop in dalmation){
+for (let prop in dalmation) {
     if (dalmation.hasOwnProperty(prop)) {
         ownProperties.push(prop);
     }
@@ -94,3 +108,59 @@ for (let prop in dalmation){
 }
 console.log("ownProperties: " + ownProperties);
 console.log("prototypeProperties: " + prototypeProperties);
+
+// The constructor property.
+console.log("--- The constructor property");
+function Dog5(name) {
+    this.name = name;
+}
+function joinDogFraternity(candidate) {
+    if (candidate.constructor === Dog5) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+const fifthDog = new Dog5("Fiver");
+console.log("fifthDog is a Dog5 object: " + joinDogFraternity(fifthDog));
+
+// Change the prototype to a new object
+// Until now, we've been adding properties to the prototypes individually,
+// this becomes tedious
+// More efficient to set the prototype to a new object that already contains the properties
+// (ie: put the prototype properties in an object)
+console.log("\n--- Change the prototype to a new object (prototype values in an object)");
+function Dog6(name) {
+    this.name = name;
+}
+// Beware, using new object to manually define prototype properties ERASES the constructor property! 
+Dog6.prototype = {
+    // Define the constructor property here so it fixed the ERASING issue.
+    constructor: Dog6,
+    numLegs: 4,
+    eat: function () { console.log("nom nom nom"); },
+    describe: function () { console.log("My name is " + this.name) },
+};
+let sixer = new Dog6("Sixer");
+console.log("sixer is eating via prototype...");
+sixer.eat();
+console.log("sixer description via prototype...");
+sixer.describe();
+
+// Object inherit their prototypes from the constructor function that created it
+console.log("\n--- isPrototypeOf()");
+function Dog7(name) {
+    this.name = name;
+}
+let labrador = new Dog7("Snoopy");
+console.log("labrador isPrototypeOf Dog7? " + Dog7.prototype.isPrototypeOf(labrador));
+
+// Prototype chain
+console.log("\n--- Prototype chain");
+function Dog8(name) {
+    this.name = name;
+}
+let puppy = new Dog8("Snoopy");
+Dog8.prototype.isPrototypeOf(beagle);  // yields true
+console.log("Object class is prototype of Dog8 class? " + Object.prototype.isPrototypeOf(Dog8.prototype));
