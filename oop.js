@@ -10,10 +10,11 @@
 // 3. instanceof keyword (fido instanceof Dog - returns true or false)
 // 4. hasOwnProperty() method (own property, not a (shared) prototype property)
 // 5. Dog3.prototype.numLegs = 4; constructor functions have the prototype property,
-//                                these prototype properties are shared amoung all
-//                                instances of the object (all instances have same value)
+//       these prototype properties are shared amoung all
+//       instances of the object (all instances have same value)
 // 6: prototype properties (of constructor functions) can be set all at once via an object  
-// 7. Object.create(Object.prototype) is better than "new" key word for creating object instances
+// 7. ChildObject.prototype=Object.create(ParentObject.prototype) is better than "new"
+//       keyword for creating object instances
 
 // Dog object
 console.log("--- Dog object");
@@ -142,7 +143,7 @@ Dog6.prototype = {
     constructor: Dog6,
     numLegs: 4,
     eat: function () { console.log("nom nom nom"); },
-    describe: function () { console.log("My name is " + this.name) },
+    describe: function () { console.log("My name is " + this.name); },
 };
 let sixer = new Dog6("Sixer");
 console.log("sixer is eating via prototype...");
@@ -169,7 +170,7 @@ console.log("Object class is prototype of Dog8 class? " + Object.prototype.isPro
 
 
 // Rather than use "new" keyword with a constructor function to create a new instance,
-// we can Object.create(Object.protoype)
+// we can ChildObject.prototype=Object.create(ParentObject.prototype)
 console.log("\n--- Using Object.create(Object.prototype) is better than using 'new' keyword");
 function Test () {}
 Test.prototype = {
@@ -188,6 +189,7 @@ Animal.prototype = {
     }
 };
 function Duck() { }
+// Bird inherits from Animal
 Bird.prototype = Object.create(Animal.prototype);
 // Change Bird constructor from Animal to Bird
 Bird.prototype.constructor = Bird;
@@ -201,3 +203,9 @@ console.log("duck is about to eat (Animal prototype function)...");
 duck.eat()
 console.log("duck is about to fly (Bird prototype function)...");
 duck.fly();
+// Now let's override the eat() in Animal for duck
+Bird.prototype.eat = function() {
+    console.log("peck peck peck");
+}
+console.log("duck is about to eat (Bird's prototype function overriding Animal's)...");
+duck.eat();
