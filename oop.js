@@ -12,7 +12,8 @@
 // 5. Dog3.prototype.numLegs = 4; constructor functions have the prototype property,
 //                                these prototype properties are shared amoung all
 //                                instances of the object (all instances have same value)
-// 6: prototype properties of constructor functions can be set all at once via an object  
+// 6: prototype properties (of constructor functions) can be set all at once via an object  
+// 7. Object.create(Object.prototype) is better than "new" key word for creating object instances
 
 // Dog object
 console.log("--- Dog object");
@@ -135,6 +136,7 @@ function Dog6(name) {
     this.name = name;
 }
 // Beware, using new object to manually define prototype properties ERASES the constructor property! 
+// Prototype object
 Dog6.prototype = {
     // Define the constructor property here so it fixed the ERASING issue.
     constructor: Dog6,
@@ -148,7 +150,7 @@ sixer.eat();
 console.log("sixer description via prototype...");
 sixer.describe();
 
-// Object inherit their prototypes from the constructor function that created it
+// Objects inherit their prototypes from the constructor function that created it
 console.log("\n--- isPrototypeOf()");
 function Dog7(name) {
     this.name = name;
@@ -156,7 +158,7 @@ function Dog7(name) {
 let labrador = new Dog7("Snoopy");
 console.log("labrador isPrototypeOf Dog7? " + Dog7.prototype.isPrototypeOf(labrador));
 
-// Prototype chain
+// Prototype chain (inheritance beginnings, Object class is at the root)
 console.log("\n--- Prototype chain");
 function Dog8(name) {
     this.name = name;
@@ -164,3 +166,38 @@ function Dog8(name) {
 let puppy = new Dog8("Snoopy");
 Dog8.prototype.isPrototypeOf(beagle);  // yields true
 console.log("Object class is prototype of Dog8 class? " + Object.prototype.isPrototypeOf(Dog8.prototype));
+
+
+// Rather than use "new" keyword with a constructor function to create a new instance,
+// we can Object.create(Object.protoype)
+console.log("\n--- Using Object.create(Object.prototype) is better than using 'new' keyword");
+function Test () {}
+Test.prototype = {
+    constructor: Test,
+    numLegs: 2,
+}
+const myTest = Object.create(Test.prototype);
+console.log("myTest numLegs: " + myTest.numLegs);
+
+// Inheritance via prototype so you don't repeat yourself (DRY)
+function Animal() { }
+Animal.prototype = {
+    constructor: Animal,
+    eat: function () {
+        console.log("nom nom nom");
+    }
+};
+function Duck() { }
+Bird.prototype = Object.create(Animal.prototype);
+// Change Bird constructor from Animal to Bird
+Bird.prototype.constructor = Bird;
+// Give Bird its own unique function.
+Bird.prototype.fly = function() {
+    console.log("I'm flying!");
+}
+// Bird can now eat and fly 
+let duck = new Bird();
+console.log("duck is about to eat (Animal prototype function)...");
+duck.eat()
+console.log("duck is about to fly (Bird prototype function)...");
+duck.fly();
