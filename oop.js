@@ -172,7 +172,7 @@ console.log("Object class is prototype of Dog8 class? " + Object.prototype.isPro
 // Rather than use "new" keyword with a constructor function to create a new instance,
 // we can ChildObject.prototype=Object.create(ParentObject.prototype)
 console.log("\n--- Using Object.create(Object.prototype) is better than using 'new' keyword");
-function Test () {}
+function Test() { }
 Test.prototype = {
     constructor: Test,
     numLegs: 2,
@@ -181,6 +181,7 @@ const myTest = Object.create(Test.prototype);
 console.log("myTest numLegs: " + myTest.numLegs);
 
 // Inheritance via prototype so you don't repeat yourself (DRY)
+console.log("\n--- Override inherited methods");
 function Animal() { }
 Animal.prototype = {
     constructor: Animal,
@@ -194,7 +195,7 @@ Bird.prototype = Object.create(Animal.prototype);
 // Change Bird constructor from Animal to Bird
 Bird.prototype.constructor = Bird;
 // Give Bird its own unique function.
-Bird.prototype.fly = function() {
+Bird.prototype.fly = function () {
     console.log("I'm flying!");
 }
 // Bird can now eat and fly 
@@ -204,8 +205,88 @@ duck.eat()
 console.log("duck is about to fly (Bird prototype function)...");
 duck.fly();
 // Now let's override the eat() in Animal for duck
-Bird.prototype.eat = function() {
+Bird.prototype.eat = function () {
     console.log("peck peck peck");
 }
 console.log("duck is about to eat (Bird's prototype function overriding Animal's)...");
 duck.eat();
+
+// Bird and Aeroplane can both fly, but they are unrelated really.
+// Best to use a Mixin in such instances.
+console.log("\n--- Using Mixins for unrelated objects that can have the same methods");
+let birdy = {
+    name: "Donald",
+    numLegs: 2
+};
+
+let boat = {
+    name: "Warrior",
+    type: "race-boat"
+};
+
+let glideMixin = function (obj) {
+    obj.glide = function () { console.log("I'm gliding!"); }
+};
+
+glideMixin(birdy);
+glideMixin(boat);
+
+console.log("Birdy and boat can both glide via Mixin...");
+console.log("birdy...");
+birdy.glide();
+console.log("boat...");
+boat.glide();
+
+// Creating private variables in JavaScript
+console.log("\n--- Creating private variable in JS and accessing via getter function");
+function Bird() {
+    let weight = 15;
+
+    this.getWeight = function () {
+        return weight;
+    }
+}
+let eagle = new Bird();
+console.log("Eagle's weight is: " + eagle.getWeight());
+
+console.log("\n--- IIFE: Immediately Invoked Function Expressions");
+// Immediately Invoked Function Expressions (IIFE)
+// These get invoked immediately, as soon as they are declared
+// Here's an annonymous function expression that executes right away
+// note that the function expressions have:
+//   (1) NO names
+//   (2) it's NOT stored in a variable
+//   (3) the "()" at the end of the function expressions
+(function () {
+    console.log("chirp chirp!");
+})();
+(function () {
+    console.log("A cozy nest is ready");
+})();
+
+
+// Using an IIFE to create a module
+// An IIFE is often used to group related functionality into a single object of module
+console.log("\n--- Using an IIFE to create a module");
+// Grouping a glide mixin and a fly mixin into an object
+// This object is returned immediately from an IIFE and is stored in vaiable motionModule
+// The advantage of the module pattern is that all of the motion behaviors can be packaged
+// into a single object that can then be used by other parts of your code
+let motionModule = (function () {
+    return {
+        glideMixin: function (obj) {
+            obj.glide = function () {
+                console.log("I'm gliding!");
+            };
+        },
+        flyMixin: function (obj) {
+            obj.fly = function () {
+                console.log("I'm flying!");
+            };
+        },
+    }
+}) ();
+console.log("Eagle gliding using glide mixin from a module...");
+motionModule.glideMixin(eagle);
+eagle.glide();
+
