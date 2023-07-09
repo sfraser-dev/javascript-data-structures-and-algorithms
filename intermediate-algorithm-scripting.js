@@ -91,7 +91,7 @@ function whatIsInAName(collection, source) {
 
     // If the collection object doesn't have a key/value pair that the source has, filter it out 
     // Iterate over the collection...
-    let newCollection = collection.filter(function(object) {
+    let newCollection = collection.filter(function (object) {
         // For each key/value pair in a collection object...
         for (let i = 0; i < sourceKeys.length; i++) {
             // Does this collection object have all the key/value pairs that the source has?...
@@ -108,7 +108,7 @@ function whatIsInAName(collection, source) {
     return newCollection;
 }
 console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }));
-console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat":2 }], { "apple": 1, "bat": 2 }));
+console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat": 2 }], { "apple": 1, "bat": 2 }));
 console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "cookie": 2 }));
 
 //// Methods used
@@ -121,3 +121,24 @@ console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 
 // slice() [mutable]
 // includes()
 // Object.keys(obj) [get the keys from Object obj as an array]
+// filter()
+// replace(/(group1)(group2)/g, "$1 $2") [$1 is group1 match, $2 is group2 match]
+// toLowerCase()
+
+
+////////////////////
+// Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
+console.log("\n--- (5)");
+function spinalCase(str) {
+    // replace match of "lowercaseUPPERCASE" text with "lowercase UPPERCASE"
+    let newStr1 = str.replace(/([a-z])([A-Z])/g, "$1 $2"); 
+    // regex for white space and underscores
+    let myRegex = /\s+|_+/g;
+    // replace spaces and underscores with hyphens
+    let newStr2 = newStr1.replace(myRegex, "-");
+    // convert to lowercase
+    let newStr3 = newStr2.toLowerCase();
+    return newStr3;
+}
+console.log("spinalCase('This Is Spinal Tap') -> " + spinalCase('This Is Spinal Tap'));
+console.log("spinalCase('thisIsSpinalTap') -> " + spinalCase('thisIsSpinalTap'));
