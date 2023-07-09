@@ -133,7 +133,8 @@ console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 // string.slice == string.substring (tiny diff in edge cases), bad design on JS part
 // string.split can take a regular expression as input
 // arr.sort((a,b) => a-b); // need the arrow function as it sorts the array alphabetically by default
-// See also functional-programming.js, it too has examples of these (and other) array and string methods
+// See also "functional-programming.js", it too has examples of these (and other) array and string methods
+// "functional-programming.js" says best not to use mutable mthods whenever possible
 //
 // truncate a string (I'm trying it without a for loop - practice JS methods)
 console.log("--truncate a string using JS methods");

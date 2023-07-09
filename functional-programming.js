@@ -182,6 +182,22 @@ const watchList = [
 ];
 // Movie watchlist object end ///////////////////////////////////////////////
 
+// Functional programming immutable methods used here
+// map()
+// filter()
+// slice()
+// concat()
+// reduce(callbackFn, initialVal) ... callbackFn(accumulator, currElement, index, array)
+// sort() // compareFunction needed, alphabetical sort by default
+// split()
+// join()
+// trim()
+// toLowerCase()
+// replace() // replaces first occurance
+// replaceAll()
+// every()
+// some()
+
 ////////////////////
 // Using for loop, create a new array of object where each object contains only title and rating
 // from the watchlist
@@ -213,7 +229,6 @@ const ratings2 = watchList.map(function (y) {
 });
 console.log("ratings2");
 console.table(ratings2);
-
 
 ////////////////////
 // Writing my own version of the map function
@@ -454,3 +469,49 @@ sentensify("May-the-force-be-with-you");
 console.log("original: 'May-the-force-be-with-you' split().join() combo-> " + sentensify("May-the-force-be-with-you"));
 console.log("or using replaceAll() instead of split().join()");
 console.log('May-the-force-be-with-you".replaceAll("-", " ") -> ' + 'May-the-force-be-with-you'.replaceAll('-', ' '));
+
+////////////////////  
+// Url Slug (hyphenate a sentence so it can be an URL slug), don't use replace
+console.log("\n--- URL slug using split and join");
+function urlSlug(title) {
+    // lowercase
+    let strArr1 = title.toLowerCase();
+    //  trim whitespace at start and end
+    let strArr2 = strArr1.trim();
+    // split string on non alphanumeric characters (one or more in a row)
+    let strArr3 = strArr2.split(/\W+/);
+    // create URL slug by joining with hyphens
+    let strArr4 = strArr3.join("-");
+    return strArr4;
+}
+console.log("'A Mind Needs Books Like A Sword Needs A Whetstone' -> " + urlSlug("A Mind Needs Books Like A Sword Needs A Whetstone"));
+console.log("' Winter is  Coming   ' -> " + urlSlug(" Winter is  Coming   "));
+console.log("'Hold The Door' -> " + urlSlug("Hold The Door"));
+
+////////////////////  
+// The every method
+// every() works with arrays to check if EVERY element passes a particular test.
+// It returns a BOOLEAN value - true if all values meet the criteria, false if not.
+console.log("\n--- Every");
+function checkPositiveAll(arr) {
+    // Every() function with callback checking for positive values
+    let boolVal = arr.every(function (elem) {
+        return elem >= 0;
+    });
+    return boolVal;
+}
+console.log("checkPositive([1, 2, 3, -4, 5] via every() -> " + checkPositiveAll([1, 2, 3, -4, 5]));
+
+////////////////////  
+// The some method
+// some() works with arrays to check if SOME element passes a particular test.
+// It returns a BOOLEAN value - true if ANY value meets the criteria, false if not.
+console.log("\n--- Some");
+function checkPositiveSome(arr) {
+    // Some() function with callback checking for positive values
+    let boolVal = arr.some(function (elem) {
+        return elem >= 0;
+    });
+    return boolVal;
+}
+console.log("checkPositive([1, 2, 3, -4, 5] via some() -> " + checkPositiveSome([1, 2, 3, -4, 5]));
