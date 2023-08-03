@@ -185,3 +185,35 @@ function translatePigLatin(str) {
     }
 }
 translatePigLatin("cchhssonsonant");
+
+////////// Search and Replace
+console.log("\n--- (7)");
+// First argument is the sentence to perform the search and replace on.
+// Second argument is the word that you will be replacing (before).
+// Third argument is what you will be replacing the second argument with (after).
+function myReplace(str, before, after) {
+    // determine if "before" starts with lower or uppler case letter
+    let lowerCase = false;
+    let beforeFirstChar = before[0];
+    if (beforeFirstChar === beforeFirstChar.toLowerCase()) {
+        lowerCase = true;
+    }
+
+    // make case of "after's" first letter match that of "before's" first letter
+    let afterNew = "";
+    if (lowerCase) {
+        afterNew = (after[0].toLowerCase()).concat(after.slice(1,after.length));
+    }
+    else {
+        afterNew = (after[0].toUpperCase()).concat(after.slice(1,after.length));
+    }
+
+    // replace
+    let newStr = str.replace(before, afterNew);
+    console.log(afterNew);
+    console.log(newStr);
+    return newStr;
+}
+myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
+myReplace("Let us go to the store", "store", "mall");
+myReplace("He is Sleeping on the couch", "Sleeping", "sitting");
