@@ -131,7 +131,7 @@ console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 
 console.log("\n--- (5)");
 function spinalCase(str) {
     // replace match of "lowercaseUPPERCASE" text with "lowercase UPPERCASE"
-    let newStr1 = str.replace(/([a-z])([A-Z])/g, "$1 $2"); 
+    let newStr1 = str.replace(/([a-z])([A-Z])/g, "$1 $2");
     // regex for white space and underscores
     let myRegex = /\s+|_+/g;
     // replace spaces and underscores with hyphens
@@ -142,3 +142,46 @@ function spinalCase(str) {
 }
 console.log("spinalCase('This Is Spinal Tap') -> " + spinalCase('This Is Spinal Tap'));
 console.log("spinalCase('thisIsSpinalTap') -> " + spinalCase('thisIsSpinalTap'));
+
+
+//////////////////// Pig Latin (all inputs are lowercase)
+// - If a word begins with a consonant, take the first consonant or consonant
+//   cluster, move it to the end of the word, and add ay to it.
+// - If a word begins with a vowel, just add way at the end.
+console.log('\n--- (6) Pig Latin');
+function translatePigLatin(str) {
+    let constonantCount = 0;
+    let constonantArray = [];
+    let vowel = ['a', 'e', 'i', 'o', 'u'].includes(str[0]);
+    // deal with vowel first letter
+    if (vowel) {
+        let newStr = str.concat("way");
+        return newStr;
+    }
+    // deal with constonant first letter
+    else {
+        // first letter
+        constonantCount++;
+        constonantArray.push(str[0]);
+        // possible cluster of constonants
+        for (let i = 1; i < str.length; i++) {
+            vowel = ['a', 'e', 'i', 'o', 'u'].includes(str[i]);
+            if (vowel) {
+                break;
+            }
+            else {
+                constonantCount++;
+                constonantArray.push(str[i])
+            }
+        }
+        // remove correct amount of constonants from the start of the string
+        let sliceStr = str.slice(constonantCount, str.length);
+        // perform concatonation of the strings
+        let newStr = (sliceStr.concat(...constonantArray)).concat("ay");
+        console.log(constonantArray);
+        console.log(sliceStr);
+        console.log(newStr);
+        return newStr;
+    }
+}
+translatePigLatin("cchhssonsonant");
