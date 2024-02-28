@@ -46,20 +46,32 @@ function diffArray(arr1, arr2) {
         let arr2IndexOfSetValue = arr2.indexOf(setArr[i]);
         if (arr1IndexOfSetValue < 0) {
             // arr1 doesn't have this value from the concatenated set
-            notInArr1.push(setArr[i])
+            notInArr1.push(setArr[i]);
         }
         if (arr2IndexOfSetValue < 0) {
             // arr2 doesn't have this value from the concatenated set
-            notInArr2.push(setArr[i])
+            notInArr2.push(setArr[i]);
         }
     }
     let onlyInOneArr = notInArr1.concat(notInArr2);
     return onlyInOneArr;
 }
-console.log("diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5] -> " + diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5]));
-console.log('[1, "calf", 3, "piglet"], [1, "calf", 3, 4] -> ' + diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4]));
-console.log('[], ["snuffleupagus", "cookie monster", "elmo"] -> ' + diffArray([], ["snuffleupagus", "cookie monster", "elmo"]));
-console.log('[1, "calf", 3, "piglet"], [7, "filly"] -> ' + diffArray([1, "calf", 3, "piglet"], [7, "filly"]));
+console.log(
+    "diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5] -> " +
+        diffArray([1, 2, 3, 5], [1, 2, 3, 4, 5])
+);
+console.log(
+    '[1, "calf", 3, "piglet"], [1, "calf", 3, 4] -> ' +
+        diffArray([1, "calf", 3, "piglet"], [1, "calf", 3, 4])
+);
+console.log(
+    '[], ["snuffleupagus", "cookie monster", "elmo"] -> ' +
+        diffArray([], ["snuffleupagus", "cookie monster", "elmo"])
+);
+console.log(
+    '[1, "calf", 3, "piglet"], [7, "filly"] -> ' +
+        diffArray([1, "calf", 3, "piglet"], [7, "filly"])
+);
 
 ////////////////////
 // You will be provided with an initial array (the first argument in the destroyer function),
@@ -72,12 +84,23 @@ function destroyer(arr) {
     // get the values to be removed from the function arguments
     const valsToRemove = Array.from(arguments).slice(1);
     // use filter function to create new array with the desired values removed
-    let retArr = arr.filter(function (x) { return !(valsToRemove.includes(x)); })
+    let retArr = arr.filter(function (x) {
+        return !valsToRemove.includes(x);
+    });
     return retArr;
 }
-console.log("destroyer([1, 2, 3, 1, 2, 3], 2, 3) -> " + JSON.stringify(destroyer([1, 2, 3, 1, 2, 3], 2, 3)));
-console.log("destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3) -> " + JSON.stringify(destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3)));
-console.log('destroyer(["tree", "hamburger", 53], "tree", 53] -> ' + JSON.stringify(destroyer(["tree", "hamburger", 53], "tree", 53)));
+console.log(
+    "destroyer([1, 2, 3, 1, 2, 3], 2, 3) -> " +
+        JSON.stringify(destroyer([1, 2, 3, 1, 2, 3], 2, 3))
+);
+console.log(
+    "destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3) -> " +
+        JSON.stringify(destroyer([1, 2, 3, 5, 1, 2, 3], 2, 3))
+);
+console.log(
+    'destroyer(["tree", "hamburger", 53], "tree", 53] -> ' +
+        JSON.stringify(destroyer(["tree", "hamburger", 53], "tree", 53))
+);
 
 ////////////////////
 // Make a function that looks through an array of objects (first argument) and returns an array of all objects that
@@ -89,7 +112,7 @@ function whatIsInAName(collection, source) {
     const sourceKeys = Object.keys(source);
     console.log(sourceKeys);
 
-    // If the collection object doesn't have a key/value pair that the source has, filter it out 
+    // If the collection object doesn't have a key/value pair that the source has, filter it out
     // Iterate over the collection...
     let newCollection = collection.filter(function (object) {
         // For each key/value pair in a collection object...
@@ -107,9 +130,33 @@ function whatIsInAName(collection, source) {
     // Return filtered collection that only has the key/values that the source has
     return newCollection;
 }
-console.log(whatIsInAName([{ first: "Romeo", last: "Montague" }, { first: "Mercutio", last: null }, { first: "Tybalt", last: "Capulet" }], { last: "Capulet" }));
-console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }, { "bat": 2 }], { "apple": 1, "bat": 2 }));
-console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 1, "bat": 2, "cookie": 2 }], { "apple": 1, "cookie": 2 }));
+console.log(
+    whatIsInAName(
+        [
+            { first: "Romeo", last: "Montague" },
+            { first: "Mercutio", last: null },
+            { first: "Tybalt", last: "Capulet" },
+        ],
+        { last: "Capulet" }
+    )
+);
+console.log(
+    whatIsInAName(
+        [
+            { apple: 1, bat: 2 },
+            { apple: 1 },
+            { apple: 1, bat: 2, cookie: 2 },
+            { bat: 2 },
+        ],
+        { apple: 1, bat: 2 }
+    )
+);
+console.log(
+    whatIsInAName(
+        [{ apple: 1, bat: 2 }, { apple: 1 }, { apple: 1, bat: 2, cookie: 2 }],
+        { apple: 1, cookie: 2 }
+    )
+);
 
 //// Methods used
 // reduce()
@@ -125,7 +172,6 @@ console.log(whatIsInAName([{ "apple": 1, "bat": 2 }, { "apple": 1 }, { "apple": 
 // replace(/(group1)(group2)/g, "$1 $2") [$1 is group1 match, $2 is group2 match]
 // toLowerCase()
 
-
 ////////////////////
 // Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
 console.log("\n--- (5)");
@@ -140,19 +186,22 @@ function spinalCase(str) {
     let newStr3 = newStr2.toLowerCase();
     return newStr3;
 }
-console.log("spinalCase('This Is Spinal Tap') -> " + spinalCase('This Is Spinal Tap'));
-console.log("spinalCase('thisIsSpinalTap') -> " + spinalCase('thisIsSpinalTap'));
-
+console.log(
+    "spinalCase('This Is Spinal Tap') -> " + spinalCase("This Is Spinal Tap")
+);
+console.log(
+    "spinalCase('thisIsSpinalTap') -> " + spinalCase("thisIsSpinalTap")
+);
 
 //////////////////// Pig Latin (all inputs are lowercase)
 // - If a word begins with a consonant, take the first consonant or consonant
 //   cluster, move it to the end of the word, and add ay to it.
 // - If a word begins with a vowel, just add way at the end.
-console.log('\n--- (6) Pig Latin');
+console.log("\n--- (6) Pig Latin");
 function translatePigLatin(str) {
     let constonantCount = 0;
     let constonantArray = [];
-    let vowel = ['a', 'e', 'i', 'o', 'u'].includes(str[0]);
+    let vowel = ["a", "e", "i", "o", "u"].includes(str[0]);
     // deal with vowel first letter
     if (vowel) {
         let newStr = str.concat("way");
@@ -165,19 +214,18 @@ function translatePigLatin(str) {
         constonantArray.push(str[0]);
         // possible cluster of constonants
         for (let i = 1; i < str.length; i++) {
-            vowel = ['a', 'e', 'i', 'o', 'u'].includes(str[i]);
+            vowel = ["a", "e", "i", "o", "u"].includes(str[i]);
             if (vowel) {
                 break;
-            }
-            else {
+            } else {
                 constonantCount++;
-                constonantArray.push(str[i])
+                constonantArray.push(str[i]);
             }
         }
         // remove correct amount of constonants from the start of the string
         let sliceStr = str.slice(constonantCount, str.length);
         // perform concatonation of the strings
-        let newStr = (sliceStr.concat(...constonantArray)).concat("ay");
+        let newStr = sliceStr.concat(...constonantArray).concat("ay");
         console.log(constonantArray);
         console.log(sliceStr);
         console.log(newStr);
@@ -202,10 +250,9 @@ function myReplace(str, before, after) {
     // make case of "after's" first letter match that of "before's" first letter
     let afterNew = "";
     if (lowerCase) {
-        afterNew = (after[0].toLowerCase()).concat(after.slice(1,after.length));
-    }
-    else {
-        afterNew = (after[0].toUpperCase()).concat(after.slice(1,after.length));
+        afterNew = after[0].toLowerCase().concat(after.slice(1, after.length));
+    } else {
+        afterNew = after[0].toUpperCase().concat(after.slice(1, after.length));
     }
 
     // replace
@@ -217,3 +264,88 @@ function myReplace(str, before, after) {
 myReplace("A quick brown fox jumped over the lazy dog", "jumped", "leaped");
 myReplace("Let us go to the store", "store", "mall");
 myReplace("He is Sleeping on the couch", "Sleeping", "sitting");
+
+////////// DNA Pairing
+console.log("\n--- (8)");
+// Pairs of DNA strands consist of nucleobase pairs. Base pairs are represented
+// by the characters AT and CG, which form building blocks of the DNA double
+// helix (AT, TA, GC, CG).
+function pairElement(str) {
+    str = str.split("").map((c) => {
+        let ret = [];
+        switch (c) {
+            case "G":
+                ret = ["G", "C"];
+                break;
+            case "C":
+                ret = ["C", "G"];
+                break;
+            case "A":
+                ret = ["A", "T"];
+                break;
+            case "T":
+                ret = ["T", "A"];
+                break;
+            default:
+                console.log("DNA switch error");
+                break;
+        }
+        return ret;
+    });
+    return str;
+}
+console.log(pairElement("GCG")); //[["G", "C"], ["C","G"], ["G", "C"]]
+console.log(pairElement("ATCGA")); //[["A","T"],["T","A"],["C","G"],["G","C"],["A","T"]]
+console.log(pairElement("TTGAG")); //[["T","A"],["T","A"],["G","C"],["A","T"],["G","C"]]
+console.log(pairElement("CTCTA")); //[["C","G"],["T","A"],["C","G"],["T","A"],["A","T"]]
+
+////////// Missing Letter
+console.log("\n--- (9)");
+// Find the missing letter in the passed letter range and return it.
+// If all letters are present in the range, return undefined.
+function fearNotLetter(str) {
+    // Use charCodeAt to get a numeric UTF-16 code for each character.
+    for (let i = 1; i < str.length; i++) {
+        // Check if the difference between consecutive UTF-16 code isn't 1.
+        if (str.charCodeAt(i) - str.charCodeAt(i - 1) !== 1) {
+            // Calculate the missing character's code by adding 1 to the previous code.
+            return String.fromCharCode(str.charCodeAt(i - 1) + 1);
+        }
+    }
+    // If no missing letter is found, return undefined.
+    return undefined;
+}
+
+console.log(fearNotLetter("abce")); // Output: "d"
+console.log(fearNotLetter("abcdefghjklmno")); // Output: "i"
+console.log(fearNotLetter("stvwx")); // Output: "u"
+console.log(fearNotLetter("bcdf")); // Output: "e"
+console.log(fearNotLetter("abcdefghijklmnopqrstuvwxyz")); // Output: undefined.
+
+////////// Sorted Union
+console.log("\n--- (10)");
+// Write a function that takes two or more arrays and returns a new array of unique
+// values in the order of the original provided arrays.
+// In other words, all values present from all arrays should be included in their
+// original order, but with no duplicates in the final array.
+// The unique numbers should be sorted by their original order, but the final
+// array should not be sorted in numerical order.
+
+// There is an unknown number of arrays in argument list.
+// Use the "rest" operator to put unknown amount of input parameters into an array of arrays
+// - eg: ([1,3,2],[5,2,1,4],[2,1]) rested to [[1,3,2],[5,2,1,4],[2,1]]
+function uniteUnique(...variableAmountOfArraysIn) {
+    let numberoOfInputArrays = variableAmountOfArraysIn.length;
+    console.log(numberoOfInputArrays);
+    // eg: multi-dimensional [[1,3,2],[5,2,1,4],[2,1]] flattened to [1,3,2,5,2,1,4,2,1]
+    const  flattenedArray = variableAmountOfArraysIn.flat();
+    // eg: get rid of duplicates by creating a set, eg: [1,3,2,5,2,1,4,2,1] to [1,3,2,5,4]
+    const mySet = new Set(flattenedArray);
+    // return mySet as an array
+    return [...mySet];
+}
+console.log(uniteUnique([1, 3, 2], [5, 2, 1, 4], [2, 1])); // [1, 3, 2, 5, 4]
+console.log(uniteUnique([1, 2, 3], [5, 2, 1])); // [1, 2, 3, 5]
+console.log(uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8])); // [1, 2, 3, 5, 4, 6, 7, 8]
+console.log(uniteUnique([1, 3, 2], [5, 4], [5, 6])); // [1, 3, 2, 5, 4, 6]
+console.log(uniteUnique([1, 3, 2, 3], [5, 2, 1, 4], [2, 1])); // [1, 3, 2, 5, 4]
