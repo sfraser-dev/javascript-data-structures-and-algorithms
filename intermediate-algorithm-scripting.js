@@ -338,7 +338,7 @@ function uniteUnique(...variableAmountOfArraysIn) {
     let numberoOfInputArrays = variableAmountOfArraysIn.length;
     console.log(numberoOfInputArrays);
     // eg: multi-dimensional [[1,3,2],[5,2,1,4],[2,1]] flattened to [1,3,2,5,2,1,4,2,1]
-    const  flattenedArray = variableAmountOfArraysIn.flat();
+    const flattenedArray = variableAmountOfArraysIn.flat();
     // eg: get rid of duplicates by creating a set, eg: [1,3,2,5,2,1,4,2,1] to [1,3,2,5,4]
     const mySet = new Set(flattenedArray);
     // return mySet as an array
@@ -349,3 +349,37 @@ console.log(uniteUnique([1, 2, 3], [5, 2, 1])); // [1, 2, 3, 5]
 console.log(uniteUnique([1, 2, 3], [5, 2, 1, 4], [2, 1], [6, 7, 8])); // [1, 2, 3, 5, 4, 6, 7, 8]
 console.log(uniteUnique([1, 3, 2], [5, 4], [5, 6])); // [1, 3, 2, 5, 4, 6]
 console.log(uniteUnique([1, 3, 2, 3], [5, 2, 1, 4], [2, 1])); // [1, 3, 2, 5, 4]
+
+////////// Convert HTML Entities
+console.log("\n--- (11)");
+// Convert the characters &, <, >, " (double quote), and ' (apostrophe),
+// in a string to their corresponding HTML entities.
+// <=&lt; >=&gt; "=&quot; '=&apos; &=&amp;
+function convertHTML(str) {
+    // Create an object to store character / entity pairs
+    const charEntity = {
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&apos;",
+        "&": "&amp;",
+    };
+    // Split the string into an array of individual characters.
+    // Go over each individual character and use the charEntity
+    // pairings and a short-circuited OR to change the necessary 
+    // individual characters (if charEntity[individualChar]
+    // doesn't exist, it'll be undefined ("falsey"), thus
+    // "individualChar" will be returned from the short-circuit.
+    str = str.split("").map((individualChar) => {
+        return charEntity[individualChar] || individualChar;
+    });
+    // Rejoin the individual characters back into a string.
+    return str.join("");
+}
+console.log(convertHTML("Dolce & Gabbana")); //Dolce &amp; Gabbana
+console.log(convertHTML("Hamburgers < Pizza < Tacos")); //Hamburgers &lt; Pizza &lt; Tacos
+console.log(convertHTML("Sixty > twelve")); //Sixty &gt; twelve
+console.log(convertHTML('Stuff in "quotation marks"')); //Stuff in &quot;quotation marks&quot;
+console.log(convertHTML("Schindler's List")); //Schindler&apos;s List
+console.log(convertHTML("<>")); //&lt;&gt;.
+console.log(convertHTML("abc")); //abc
