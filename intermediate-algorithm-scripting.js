@@ -425,8 +425,8 @@ console.log("\n--- (13)");
 // that are less than or equal to num
 function sumPrimes(num) {
     let sumOfPrimes = 0;
-    // look through the range of numbers [0..num]
-    for (let n = 0; n <= num; ++n) {
+    // look through the range of numbers [2..num-1], <=1 cannot be prime and num cannot be prime
+    for (let n = 0; n <= num; n++) {
         // for each number in this range, check if it's a prime, if it's a prime,
         // then add it to the sum of primes
         sumOfPrimes += primeNumberCheck(n);
@@ -440,8 +440,11 @@ function primeNumberCheck(intIn) {
     if (intIn <= 1) {
         return 0;
     } else {
-        
-        for (let i = 2; i < intIn; ++i) {
+        //-- for (let i = 2; i < intIn; ++i) {
+        //-- speed up possible: say num=a*b, if "a"=6 & "b"=6, "num"=36. checking "b"=7 redundant as
+        // "a" would have to be less than 6 (all already checked). Only need to check [2..sqrt(intIn)]
+        // don't need to check 1 or the number itself.
+        for (let i = 2; i * i <= intIn; ++i) {
             if (intIn % i === 0) {
                 // factor found, thus, intIn is NOT a prime number
                 return 0;
@@ -454,3 +457,51 @@ function primeNumberCheck(intIn) {
 
 console.log(sumPrimes(10)); // 17
 console.log(sumPrimes(977)); // 73156
+
+////////// Smallest Common Multiple
+console.log("\n--- (14)");
+// Find the smallest common multiple of the provided parameters that can be evenly
+// divided by both, as well as by all sequential numbers in the range between these parameters.
+// The range will be an array of two numbers that will not necessarily be in numerical order.
+// For example, if given 1 and 3, find the smallest common multiple of both 1 and 3 that is
+// also evenly divisible by all numbers between 1 and 3. The answer here would be 6.
+function smallestCommons(arr) {
+    // sort the array from low to high
+    arr.sort((a, b) => a - b);
+    const [min, max] = arr;
+
+    // initialise possible common multiple to the larger value
+    // say we wanted to find the lowest common multiple (LCM) of values 4 and 6
+    // multiples of 4: 4, 8,12,16,20,24,28,32
+    // multiples of 6: 6,12,18,24,30,36,42,48
+    // LCM of values 4 and 6 is 12, so we should test the multiples of 6,
+    // the higher of the values, as this is definitely a multiple of 6, check to
+    // see if it's also a multiple of 4
+    let possibleLCM = max;
+
+    // test our possible lowest common multiple and see if it is divisible by all of [min...max]
+    while (!isCommonMultiple(possibleLCM, min, max)) {
+        // if not a LCM, increment the higher of the values by itself
+        possibleLCM += max;
+    }
+
+    return possibleLCM;
+}
+
+function isCommonMultiple(possibleLCM, min, max) {
+    // iterate through all integers in [min...max] (inclusive) to check all are multiples
+    for (let i = min; i <= max; i++) {
+        if (possibleLCM% i !== 0) {
+            // not a multiple, this is not the LCM, try another LCM
+            return false;
+        }
+    }
+    // LCM found
+    return true;
+}
+
+console.log(smallestCommons([1, 5])); // 60
+console.log(smallestCommons([5, 1])); // 60
+console.log(smallestCommons([2, 10])); // 2550
+console.log(smallestCommons([1, 13])); // 360360
+console.log(smallestCommons([23, 18])); // 6056820
