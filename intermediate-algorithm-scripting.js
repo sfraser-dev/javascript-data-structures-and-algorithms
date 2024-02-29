@@ -491,7 +491,7 @@ function smallestCommons(arr) {
 function isCommonMultiple(possibleLCM, min, max) {
     // iterate through all integers in [min...max] (inclusive) to check all are multiples
     for (let i = min; i <= max; i++) {
-        if (possibleLCM% i !== 0) {
+        if (possibleLCM % i !== 0) {
             // not a multiple, this is not the LCM, try another LCM
             return false;
         }
@@ -505,3 +505,80 @@ console.log(smallestCommons([5, 1])); // 60
 console.log(smallestCommons([2, 10])); // 2550
 console.log(smallestCommons([1, 13])); // 360360
 console.log(smallestCommons([23, 18])); // 6056820
+
+////////// Drop It
+console.log("\n--- (15)");
+// Given the array arr, iterate through and remove each element starting from the
+// first element (the 0 index) until the function func returns true when the iterated
+// element is passed through it.
+// Then return the rest of the array once the condition is satisfied, otherwise,
+// arr should be returned as an empty array.
+function dropElements(arr, callback) {
+    // Find the first element where the callback function returns true
+    let dropIndex = arr.findIndex(callback);
+
+    // If no element meets the condition, return empty array, otherwise, use slice
+    // function to return new array [dropIndex, arrLength) (dropIndex inclusive,
+    // arrLength exclusive)
+    return dropIndex === -1 ? [] : arr.slice(dropIndex, arr.length);
+}
+
+console.log(
+    dropElements([1, 2, 3, 4], function (n) {
+        return n >= 3;
+    })
+); // [3, 4]
+console.log(
+    dropElements([0, 1, 0, 1], function (n) {
+        return n === 1;
+    })
+); // [1, 0, 1]
+console.log(
+    dropElements([1, 2, 3], function (n) {
+        return n > 0;
+    })
+); // [1, 2, 3]
+console.log(
+    dropElements([1, 2, 3, 4], function (n) {
+        return n > 5;
+    })
+); // []
+console.log(
+    dropElements([1, 2, 3, 7, 4], function (n) {
+        return n > 3;
+    })
+); // [7, 4]
+console.log(
+    dropElements([1, 2, 3, 9, 2], function (n) {
+        return n > 2;
+    })
+); // [3, 9, 2]
+
+////////// Steamroller
+console.log("\n--- (16)");
+// Flatten a nested array. You must account for varying levels of nesting.
+// Your solution should not use the Array.prototype.flat() or
+// Array.prototype.flatMap() methods. Global variables should not be used.
+const steamrollArray = function (arr) {
+    let result = [];
+
+    // iterate over array
+    arr.forEach((element) => {
+        // is element an array?
+        if (Array.isArray(element)) {
+            // if element is an array, flatten it by recursively calling steamrollArray()
+            result = result.concat(steamrollArray(element));
+        } else {
+            // element is not an array, add it to the results array
+            result.push(element);
+        }
+    });
+
+    // returning a fully flattened array
+    return result;
+};
+
+console.log(steamrollArray([[["a"]], [["b"]]])); // ["a", "b"]
+console.log(steamrollArray([1, [2], [3, [[4]]]])); // [1, 2, 3, 4]
+console.log(steamrollArray([1, [], [3, [[4]]]])); // [1, 3, 4]
+console.log(steamrollArray([1, {}, [3, [[4]]]])); // [1, {}, 3, 4]
