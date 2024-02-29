@@ -366,7 +366,7 @@ function convertHTML(str) {
     };
     // Split the string into an array of individual characters.
     // Go over each individual character and use the charEntity
-    // pairings and a short-circuited OR to change the necessary 
+    // pairings and a short-circuited OR to change the necessary
     // individual characters (if charEntity[individualChar]
     // doesn't exist, it'll be undefined ("falsey"), thus
     // "individualChar" will be returned from the short-circuit.
@@ -383,3 +383,74 @@ console.log(convertHTML('Stuff in "quotation marks"')); //Stuff in &quot;quotati
 console.log(convertHTML("Schindler's List")); //Schindler&apos;s List
 console.log(convertHTML("<>")); //&lt;&gt;.
 console.log(convertHTML("abc")); //abc
+
+////////// Sum All Odd Fibonacci Numbers
+console.log("\n--- (12)");
+// Given a positive integer num, return the sum of all odd Fibonacci numbers that are
+//less than or equal to num.
+// The first two numbers in the Fibonacci sequence are 0 and 1. Every additional number
+// in the sequence is the sum of the two previous numbers. The first seven numbers of
+// the Fibonacci sequence are 0, 1, 1, 2, 3, 5 and 8.
+function sumFibs(num) {
+    let sumTotal = 0;
+    // starting with "0, 1" as the first two numbers in the Fib sequence
+    let previousNumber = 0;
+    let currentNumber = 1;
+
+    // {0, 1}, 1, 2, 3, 5, 8... we start at {0, 1}
+    while (currentNumber <= num) {
+        // we're only summing the odd numbers
+        sumTotal += currentNumber % 2 !== 0 ? currentNumber : 0;
+
+        // calculate the next number in the Fib sequence
+        let previousNumberTemp = previousNumber;
+        previousNumber = currentNumber;
+        currentNumber += previousNumberTemp;
+    }
+    return sumTotal;
+}
+console.log(sumFibs(1)); // a number
+console.log(sumFibs(1000)); // 1785
+console.log(sumFibs(4000000)); // 4613732
+console.log(sumFibs(4)); // 5
+console.log(sumFibs(75024)); // 60696
+console.log(sumFibs(75025)); // 135721
+
+////////// Sum All Primes
+console.log("\n--- (13)");
+// A prime number is a whole number greater than 1 with exactly two divisors: 1 and itself.
+// For example, 2 is a prime number because it is only divisible by 1 and 2. In contrast,
+// 4 is not prime since it is divisible by 1, 2 and 4.
+// Rewrite sumPrimes so it returns the sum of all prime numbers
+// that are less than or equal to num
+function sumPrimes(num) {
+    let sumOfPrimes = 0;
+    // look through the range of numbers [0..num]
+    for (let n = 0; n <= num; ++n) {
+        // for each number in this range, check if it's a prime, if it's a prime,
+        // then add it to the sum of primes
+        sumOfPrimes += primeNumberCheck(n);
+        console.log(`n = ${n}, sumOfPrimes = ${sumOfPrimes}\n-----`);
+    }
+    return sumOfPrimes;
+}
+
+function primeNumberCheck(intIn) {
+    // edge cases, no primes below 2
+    if (intIn <= 1) {
+        return 0;
+    } else {
+        
+        for (let i = 2; i < intIn; ++i) {
+            if (intIn % i === 0) {
+                // factor found, thus, intIn is NOT a prime number
+                return 0;
+            }
+        }
+        // no factor found in for loop, thus, intIn IS a prime number
+        return intIn;
+    }
+}
+
+console.log(sumPrimes(10)); // 17
+console.log(sumPrimes(977)); // 73156
