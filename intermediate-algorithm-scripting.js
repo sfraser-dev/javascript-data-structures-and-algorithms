@@ -582,3 +582,358 @@ console.log(steamrollArray([[["a"]], [["b"]]])); // ["a", "b"]
 console.log(steamrollArray([1, [2], [3, [[4]]]])); // [1, 2, 3, 4]
 console.log(steamrollArray([1, [], [3, [[4]]]])); // [1, 3, 4]
 console.log(steamrollArray([1, {}, [3, [[4]]]])); // [1, {}, 3, 4]
+
+////////// Binary Agents
+console.log("\n--- (17)");
+// Return an English translated sentence of the passed binary string.
+// The binary string will be space separated.
+// split long input string of 1's and 0's into an array of individual binary codes
+function binaryAgent(str) {
+    const binaryCodeStringsArr = str.split(" ");
+    // loop over each binary code in the array via the map function
+    const characterArr = binaryCodeStringsArr.map(function (code) {
+        // convert each binary code to the character it represents
+        //-- parseInt(str,2) will convert the binary number (argument radix 2) in argument str to an int
+        //-- fromCharCode(int) converts the int argument to a unicode char
+        return String.fromCharCode(parseInt(code, 2));
+    });
+    //console.log(characterArr)
+    return characterArr.join("");
+}
+
+console.log(
+    binaryAgent(
+        "01000001 01110010 01100101 01101110 00100111 01110100 00100000 01100010 01101111 01101110 01100110 01101001 01110010 01100101 01110011 00100000 01100110 01110101 01101110 00100001 00111111"
+    )
+); // Aren't bonfires fun!?
+console.log(
+    binaryAgent(
+        "01001001 00100000 01101100 01101111 01110110 01100101 00100000 01000110 01110010 01100101 01100101 01000011 01101111 01100100 01100101 01000011 01100001 01101101 01110000 00100001"
+    )
+); // I love FreeCodeCamp!
+
+////////// Everything Be True
+console.log("\n--- (18)");
+// Check if the predicate (second argument) is truthy on all elements of a collection (first argument).
+// In other words, you are given an array collection of objects. The predicate pre will be an object
+// property and you need to return true if its value is truthy. Otherwise, return false.
+// In JavaScript, truthy values are values that translate to true when evaluated in a Boolean context.
+// Remember, you can access object properties through either dot notation or [] notation.
+function truthCheck(arrayOfObjects, key) {
+    // array.every(testFunc) returns true if every element in the array passes a test (defined by testFunc)
+    const isValueTruthyInAllObjects = arrayOfObjects.every(function (obj) {
+        return obj[key];
+    });
+    return isValueTruthyInAllObjects;
+}
+
+console.log(
+    truthCheck(
+        [
+            { name: "Quincy", role: "Founder", isBot: false },
+            { name: "Naomi", role: "", isBot: false },
+            { name: "Camperbot", role: "Bot", isBot: true },
+        ],
+        "isBot"
+    )
+); // false
+console.log(
+    truthCheck(
+        [
+            { name: "Quincy", role: "Founder", isBot: false },
+            { name: "Naomi", role: "", isBot: false },
+            { name: "Camperbot", role: "Bot", isBot: true },
+        ],
+        "name"
+    )
+); // true
+console.log(
+    truthCheck(
+        [
+            { name: "Quincy", role: "Founder", isBot: false },
+            { name: "Naomi", role: "", isBot: false },
+            { name: "Camperbot", role: "Bot", isBot: true },
+        ],
+        "role"
+    )
+); // false
+console.log(
+    truthCheck(
+        [
+            { name: "Pikachu", number: 25, caught: 3 },
+            { name: "Togepi", number: 175, caught: 1 },
+        ],
+        "number"
+    )
+); // true
+console.log(
+    truthCheck(
+        [
+            { name: "Pikachu", number: 25, caught: 3 },
+            { name: "Togepi", number: 175, caught: 1 },
+            { name: "MissingNo", number: NaN, caught: 0 },
+        ],
+        "caught"
+    )
+); // false
+console.log(
+    truthCheck(
+        [
+            { name: "Pikachu", number: 25, caught: 3 },
+            { name: "Togepi", number: 175, caught: 1 },
+            { name: "MissingNo", number: NaN, caught: 0 },
+        ],
+        "number"
+    )
+); // false
+console.log(
+    truthCheck(
+        [
+            { name: "Quincy", username: "QuincyLarson" },
+            { name: "Naomi", username: "nhcarrigan" },
+            { name: "Camperbot" },
+        ],
+        "username"
+    )
+); // false
+console.log(
+    truthCheck(
+        [
+            {
+                name: "freeCodeCamp",
+                users: [{ name: "Quincy" }, { name: "Naomi" }],
+            },
+            { name: "Code Radio", users: [{ name: "Camperbot" }] },
+            { name: "", users: [] },
+        ],
+        "users"
+    )
+); // true
+console.log(
+    truthCheck(
+        [
+            {
+                id: 1,
+                data: { url: "https://freecodecamp.org", name: "freeCodeCamp" },
+            },
+            {
+                id: 2,
+                data: {
+                    url: "https://coderadio.freecodecamp.org/",
+                    name: "CodeRadio",
+                },
+            },
+            { id: null, data: {} },
+        ],
+        "data"
+    )
+); // true
+console.log(
+    truthCheck(
+        [
+            {
+                id: 1,
+                data: { url: "https://freecodecamp.org", name: "freeCodeCamp" },
+            },
+            {
+                id: 2,
+                data: {
+                    url: "https://coderadio.freecodecamp.org/",
+                    name: "CodeRadio",
+                },
+            },
+            { id: null, data: {} },
+        ],
+        "id"
+    )
+); // false
+
+////////// Arguments Optional (currying)
+console.log("\n--- (19)");
+// Create a function that sums two arguments together. If only one argument is provided,
+// then return a function that expects one argument and returns the sum.
+// For example, addTogether(2, 3) should return 5, and addTogether(2) should return a function.
+// Calling this returned function with a single argument will then return the sum:
+//   var sumTwoAnd = addTogether(2);
+//   sumTwoAnd(3) returns 5.
+// If either argument isn't a valid number, return undefined.
+function addTogether(firstArg, secondArg) {
+    // firstArg is not a number
+    if (typeof firstArg !== "number") {
+        return undefined;
+    }
+
+    // firstArg is a number and secondArg is not defined
+    else if (arguments.length === 1) {
+        // currying: returning a function
+        return function curryFunction(secondArg) {
+            return typeof secondArg === "number"
+                ? firstArg + secondArg
+                : undefined;
+        };
+    }
+
+    // firstArg is a number and secondArg is not a number
+    else if (typeof secondArg !== "number") {
+        return undefined;
+    }
+
+    // firstArg and secondArg both valid numbers
+    else {
+        return firstArg + secondArg;
+    }
+}
+
+console.log(addTogether(2, 3)); // 5
+console.log(addTogether(23.4, 30)); // 53.4
+console.log(addTogether("2", 3)); // undefined
+console.log(addTogether(5, undefined)); // undefined
+console.log(addTogether("https://www.youtube.com/watch?v=dQw4w9WgXcQ")); // undefined
+console.log(addTogether(5)); // return a function
+console.log(addTogether(5)(7)); // 12
+console.log(addTogether(2)([3])); // undefined
+console.log(addTogether(2, "3")); // undefined
+
+////////// Currying
+console.log("\n--- (19.5)---Currying side quest");
+// Currying is when you break down a function that takes multiple
+// arguments into a series of functions that each take only one argument
+// It can be a way to use functions to make other functions
+// https://stackoverflow.com/questions/36314/what-is-currying
+
+// simple addition function
+function simpleAdd(a, b) {
+    return a + b;
+}
+console.log(`simpleAdd(3, 4)) = ${simpleAdd(3, 4)}`); // 7
+
+// curry the addition function
+function curryAdd(a) {
+    return function (b) {
+        return a + b;
+    };
+}
+let curryAddEmpty = curryAdd(); // curryAddEmpty is a returned FUNCTION
+let curryAdd3 = curryAdd(3); // curryAdd3 is a returned FUNCTION
+let curryAdd3_4 = curryAdd(3)(4); // 7
+let curryAddEmpty8 = curryAddEmpty(8); // NaN
+console.log(`curryAddEmpty=${curryAddEmpty}`);
+console.log(`curryAdd3=${curryAdd3}`);
+console.log(`curryAdd3_4==${curryAdd3_4}`);
+console.log(`curryAddEmpty8=${curryAddEmpty8}`);
+
+/*
+// What's happening when we call: let F=curryAdd(10) 
+function curryAdd(a) {
+    return function (b) {
+        return 10 + b;
+    };
+}
+// F=function(b) { return 10+b; }
+*/
+
+// Why curry functions at all? The simpleAdd is an EAGER operation,
+// it's doing everything at once. Instead, by currying a function,
+// we can step through it LAZILY (meaning we can 1: cache expensive
+// operations and 2: achieve abstractions in the functional paradigm)
+let doTheHardStuff = function (x) {
+    let z = doSomethingComputationallyExpensive(x);
+    return function (y) {
+        return x + y;
+    };
+};
+let doSomethingComputationallyExpensive = function (x) {
+    return x;
+};
+let finishTheJob = doTheHardStuff(10);
+let finishTheJob20 = finishTheJob(20);
+let finishTheJob30 = finishTheJob(30);
+console.log(`finishTheJob=${finishTheJob}`);
+console.log(`finishTheJob(20)=${finishTheJob20}`);
+console.log(`finishTheJob(30)=${finishTheJob30}`);
+
+////////// Make a Person
+console.log("\n--- (20)");
+// Fill in the object constructor with the following methods below:
+// getFirstName()
+// getLastName()
+// getFullName()
+// setFirstName(first)
+// setLastName(last)
+// setFullName(first, last)
+// Run the tests to see the expected output for each method. These methods
+// must be the only available means of interacting with the object. Each test
+// will declare a new Person instance as new Person('Bob', 'Ross').
+//
+// You should not change the function signature.
+// Waiting:You should not reassign the first parameter.
+// Waiting:You should not reassign the last parameter.
+// Waiting:No properties should be added. Object.keys(Person).length should always return 6.
+// Waiting:You should be able to instantiate your Person object.
+// Waiting:Your Person object should not have a firstName property.
+// Waiting:Your Person object should not have a lastName property.
+
+const Person = function (first, last) {
+        let firstName = first;
+        let lastName = last;
+
+        this.getFirstName = () => firstName;
+
+        this.getLastName = () => lastName;
+
+        this.getFullName = () => `${firstName} ${lastName}`;
+
+        this.setFirstName = (n) => {
+            firstName = n;
+        };
+
+        this.setLastName = (n) => {
+            lastName = n;
+        };
+
+        this.setFullName = (f, l) => {
+            firstName = f;
+            lastName = l;
+        };
+    }
+
+let bob1 = new Person("Bob", "Ross");
+console.log(bob1.getFirstName()); // Bob
+
+let bob2 = new Person("Bob", "Ross");
+console.log(bob2.getLastName()); // Ross
+
+let bob3 = new Person("Bob", "Ross");
+console.log(bob3.getFullName()); // Bob Ross
+
+let bob4 = new Person("Bob", "Ross");
+bob4.setFirstName("Haskell");
+console.log(bob4.getFullName()); // Haskell Ross
+
+let bob5 = new Person("Bob", "Ross");
+bob5.setLastName("Curry");
+console.log(bob5.getFullName()); // Bob Curry
+
+let bob6 = new Person("Bob", "Ross");
+bob6.setFullName("Haskell Curry");
+console.log(bob6.getFullName()); // Haskell Curry
+
+let bob7 = new Person("Bob", "Ross");
+bob7.setFullName("Haskell", "Curry");
+console.log(bob7.getFirstName()); // Haskell
+
+let bob8 = new Person("Bob", "Ross");
+bob8.setFullName("Haskell", "Curry");
+console.log(bob8.getLastName()); // Curry
+
+let bob9 = new Person("Bob", "Ross");
+bob9.setFullName("Emily Martinez", "de la Rosa");
+console.log(bob9.getFullName()); // Emily Martinez de la Rosa
+
+let bob10 = new Person("Bob", "Ross");
+bob10.setFullName("Emily Martinez", "de la Rosa");
+console.log(bob10.getFirstName()); // Emily Martinez
+
+let bob11 = new Person("Bob", "Ross");
+bob11.setFullName("Emily Martinez", "de la Rosa");
+console.log(bob11.getLastName()); // de la Rosa
