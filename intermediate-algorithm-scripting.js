@@ -973,7 +973,7 @@ console.log(
     ])
 ); // [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}]
 
-////////// Final project: Palindrome Checker
+////////// Final project 1: Palindrome Checker
 console.log("\n--- (Final project 1: Palindrome Checker)");
 // Return true if the given string is a palindrome. Otherwise, return false.
 // A palindrome is a word or sentence that's spelled the same way both forward and backward,
@@ -990,9 +990,11 @@ function palindrome(strIn) {
     alphanumericalString.toLowerCase();
 
     // Check if the processed string is equal to its reversed version
-    const isMatch =
-        alphanumericalString.split("").reverse().join("") ===
-        alphanumericalString;
+    let str1 = alphanumericalString.split("").reverse().join("").toLowerCase();
+    let str2 = alphanumericalString.toLowerCase();
+    //console.log(str1);
+    //console.log(str2);
+    const isMatch = str1 === str2;
     return isMatch;
 }
 
@@ -1009,7 +1011,7 @@ console.log(palindrome("1 eye for of 1 eye.")); // false
 console.log(palindrome("0_0 (: /- :) 0-0")); // true
 console.log(palindrome("five|_/|four")); // false
 
-////////// Final project: Roman Numeral Converter
+////////// Final project 2: Roman Numeral Converter
 console.log("\n--- (Final project 2: Roman Numeral Converter)");
 //Convert the given number into a roman numeral.
 // Roman numerals (left) Arabic numerals (right)
@@ -1114,7 +1116,7 @@ console.log(convertToRoman(1023)); // MXXIII
 console.log(convertToRoman(2014)); // MMXIV
 console.log(convertToRoman(3999)); // MMMCMXCIX
 
-////////// Final project: Caesar's Cipher
+////////// Final project 3: Caesar's Cipher
 console.log("\n--- (Final project 3: Caesar's Cipher)");
 // One of the simplest and most widely known ciphers is a Caesar cipher, also known as
 // a shift cipher. In a shift cipher the meanings of the letters are shifted by some set amount.
@@ -1187,4 +1189,3 @@ console.log(rot13("SERR YBIR?")); // FREE LOVE?
 console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.")); // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
 console.log(rot13("serr pbqr pnzc 101")); // free code camp 101
 console.log(rot13("orrs pnsr")); // beef cafe
-
