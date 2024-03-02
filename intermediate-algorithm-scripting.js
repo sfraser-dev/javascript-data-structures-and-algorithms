@@ -874,28 +874,28 @@ console.log("\n--- (20)");
 // Waiting:Your Person object should not have a lastName property.
 
 const Person = function (first, last) {
-        let firstName = first;
-        let lastName = last;
+    let firstName = first;
+    let lastName = last;
 
-        this.getFirstName = () => firstName;
+    this.getFirstName = () => firstName;
 
-        this.getLastName = () => lastName;
+    this.getLastName = () => lastName;
 
-        this.getFullName = () => `${firstName} ${lastName}`;
+    this.getFullName = () => `${firstName} ${lastName}`;
 
-        this.setFirstName = (n) => {
-            firstName = n;
-        };
+    this.setFirstName = (n) => {
+        firstName = n;
+    };
 
-        this.setLastName = (n) => {
-            lastName = n;
-        };
+    this.setLastName = (n) => {
+        lastName = n;
+    };
 
-        this.setFullName = (f, l) => {
-            firstName = f;
-            lastName = l;
-        };
-    }
+    this.setFullName = (f, l) => {
+        firstName = f;
+        lastName = l;
+    };
+};
 
 let bob1 = new Person("Bob", "Ross");
 console.log(bob1.getFirstName()); // Bob
@@ -937,3 +937,254 @@ console.log(bob10.getFirstName()); // Emily Martinez
 let bob11 = new Person("Bob", "Ross");
 bob11.setFullName("Emily Martinez", "de la Rosa");
 console.log(bob11.getLastName()); // de la Rosa
+
+////////// Map the Debris
+console.log("\n--- (21)");
+// According to Kepler's Third Law, the orbital period T of two point masses orbiting
+// each other in a circular or elliptic orbit is: 2*pi*sqrt(a^3/μ).
+// "a" is the orbit's semi-major axis
+// "μ"=GM is the standard gravitational parameter
+// "G" is the gravitational constant,
+// "M" is the mass of the more massive body.
+// Return a new array that transforms the elements' average altitude into their orbital periods (in seconds).
+// The array will contain objects in the format {name: 'name', avgAlt: avgAlt}.
+// The values should be rounded to the nearest whole number. The body being orbited is Earth.
+// The radius of the earth is 6367.4447 kilometers, and the GM value of earth is 398600.4418 km^3s^(-2).
+const orbitalPeriod = (objectArray) => {
+    const GM = 398600.4418;
+    const earthRadius = 6367.4447;
+
+    const returnArr = objectArray.map((s) => ({
+        name: s.name,
+        orbitalPeriod: Math.round(
+            Math.sqrt((earthRadius + s.avgAlt) ** 3 / GM) * Math.PI * 2
+        ),
+    }));
+
+    return returnArr;
+};
+
+console.log(orbitalPeriod([{ name: "sputnik", avgAlt: 35873.5553 }])); // [{name: "sputnik", orbitalPeriod: 86400}]
+console.log(
+    orbitalPeriod([
+        { name: "iss", avgAlt: 413.6 },
+        { name: "hubble", avgAlt: 556.7 },
+        { name: "moon", avgAlt: 378632.553 },
+    ])
+); // [{name : "iss", orbitalPeriod: 5557}, {name: "hubble", orbitalPeriod: 5734}, {name: "moon", orbitalPeriod: 2377399}]
+
+////////// Final project: Palindrome Checker
+console.log("\n--- (Final project 1: Palindrome Checker)");
+// Return true if the given string is a palindrome. Otherwise, return false.
+// A palindrome is a word or sentence that's spelled the same way both forward and backward,
+// ignoring punctuation, case, and spacing.
+// Note: You'll need to remove all non-alphanumeric characters (punctuation, spaces and symbols)
+// and turn everything into the same case (lower or upper case) in order to check for palindromes.
+// We'll pass strings with varying formats, such as racecar, RaceCar, and race CAR among others.
+// We'll also pass strings with special symbols, such as 2A3*3a2, 2A3 3a2, and 2_A3*3#A2.
+function palindrome(strIn) {
+    // get rid of non-alphanumerical chars using negated regex
+    let alphanumericalString = strIn.replace(/[^0-9a-z]/gi, "");
+
+    // convert to lower case
+    alphanumericalString.toLowerCase();
+
+    // Check if the processed string is equal to its reversed version
+    const isMatch =
+        alphanumericalString.split("").reverse().join("") ===
+        alphanumericalString;
+    return isMatch;
+}
+
+console.log(palindrome("eye")); // true
+console.log(palindrome("_eye")); // true
+console.log(palindrome("race car")); // true
+console.log(palindrome("not a palindrome")); // false
+console.log(palindrome("A man, a plan, a canal. Panama")); // true
+console.log(palindrome("never odd or even")); // true
+console.log(palindrome("nope")); // false
+console.log(palindrome("almostomla")); // false
+console.log(palindrome("My age is 0, 0 si ega ym.")); // true
+console.log(palindrome("1 eye for of 1 eye.")); // false
+console.log(palindrome("0_0 (: /- :) 0-0")); // true
+console.log(palindrome("five|_/|four")); // false
+
+////////// Final project: Roman Numeral Converter
+console.log("\n--- (Final project 2: Roman Numeral Converter)");
+//Convert the given number into a roman numeral.
+// Roman numerals (left) Arabic numerals (right)
+// M	1000
+// CM	900
+// D	500
+// CD	400
+// C	100
+// XC	90
+// L	50
+// XL	40
+// X	10
+// IX	9
+// V	5
+// IV	4
+// I   	1
+// All roman numerals answers should be provided in upper-case.
+// I    1
+// V    5
+// X    10
+// L    50
+// C    100
+// D    500
+// M    1000
+// When a symbol appears after a larger (or equal) symbol it is added
+// But if the symbol appears before a larger symbol it is subtracted
+// Don't use the same symbol more than three times in a row
+// CM   900   // C can come before M and D
+// CD   400
+// XC   90    // X can come before C and L
+// XL   40
+// IX   9     // I can come before X and V
+// IV   5
+const arabicMappingObject = {
+    1: 1,
+    2: 4,
+    3: 5,
+    4: 9,
+    5: 10,
+    6: 40,
+    7: 50,
+    8: 90,
+    9: 100,
+    10: 400,
+    11: 500,
+    12: 900,
+    13: 1000,
+};
+
+const romanMappingObject = {
+    1: "I",
+    2: "IV",
+    3: "V",
+    4: "IX",
+    5: "X",
+    6: "XL",
+    7: "L",
+    8: "XC",
+    9: "C",
+    10: "CD",
+    11: "D",
+    12: "CM",
+    13: "M",
+};
+function convertToRoman(numIn) {
+    let result = "";
+    for (let i = 13; i > 0; --i) {
+        const arabic = arabicMappingObject[i];
+        const roman = romanMappingObject[i];
+        while (arabic <= numIn) {
+            result += roman;
+            numIn -= arabic;
+        }
+    }
+    return result;
+}
+
+console.log(convertToRoman(2)); // II
+console.log(convertToRoman(3)); // III
+console.log(convertToRoman(4)); // IV
+console.log(convertToRoman(5)); // V
+console.log(convertToRoman(9)); // IX
+console.log(convertToRoman(12)); // XII
+console.log(convertToRoman(16)); // XVI
+console.log(convertToRoman(29)); // XXIX
+console.log(convertToRoman(44)); // XLIV
+console.log(convertToRoman(45)); // XLV
+console.log(convertToRoman(68)); // LXVIII
+console.log(convertToRoman(83)); // LXXXIII
+console.log(convertToRoman(97)); // XCVII
+console.log(convertToRoman(99)); // XCIX
+console.log(convertToRoman(400)); // CD
+console.log(convertToRoman(500)); // D
+console.log(convertToRoman(501)); // DI
+console.log(convertToRoman(649)); // DCXLIX
+console.log(convertToRoman(798)); // DCCXCVIII
+console.log(convertToRoman(891)); // DCCCXCI
+console.log(convertToRoman(1000)); // M
+console.log(convertToRoman(1004)); // MIV
+console.log(convertToRoman(1006)); // MVI
+console.log(convertToRoman(1023)); // MXXIII
+console.log(convertToRoman(2014)); // MMXIV
+console.log(convertToRoman(3999)); // MMMCMXCIX
+
+////////// Final project: Caesar's Cipher
+console.log("\n--- (Final project 3: Caesar's Cipher)");
+// One of the simplest and most widely known ciphers is a Caesar cipher, also known as
+// a shift cipher. In a shift cipher the meanings of the letters are shifted by some set amount.
+// A common modern use is the ROT13 cipher, where the values of the letters are shifted by
+// 13 places. Thus A ↔ N, B ↔ O and so on.
+// Write a function which takes a ROT13 encoded string as input and returns a decoded string.
+// All letters will be uppercase. Do not transform any non-alphabetic character (i.e. spaces,
+// punctuation), but do pass them on.
+function rot13(strIn) {
+    // regex to capture chars from the alphabet (case-insensitive)
+    const alphabetRegex = /[a-zA-Z]/gi;
+
+    // output
+    let decodedCipher = "";
+
+    // iterate through the encoded cipher (strIn)
+    for (let i = 0; i < strIn.length; ++i) {
+        // capture the current character
+        const chr = strIn.charAt(i);
+
+        // check if current char is alphabetic via regex?
+        if (alphabetRegex.test(chr)) {
+            // reset the regex's lastIndex property back to the start
+            alphabetRegex.lastIndex = 0;
+
+            // convert to ASCII code
+            let asciiValue = chr.charCodeAt(0);
+
+            // view ASCII table: https://www.asciitable.com/
+            // uppercase letter handling
+            if (asciiValue >= 65 && asciiValue <= 90) {
+                // loop around uppercase chars if necessary
+                if (asciiValue - 13 < 65) {
+                    asciiValue = 91 - (65 - (asciiValue - 13));
+                // no looping necessary
+                } else {
+                    asciiValue -= 13;
+                }
+                // lowercase letter handling
+            } else if (asciiValue >= 97 && asciiValue <= 122) {
+                // loop around lowercase chars if necessary
+                if (asciiValue - 13 < 97) {
+                    asciiValue = 123 - (97 - (asciiValue - 13));
+                // no looping necessary
+                } else {
+                    asciiValue -= 13;
+                }
+            } else {
+                console.log("error: missed all if statements");
+            }
+
+            // shifted asciiValue converted back to a char / string
+            const decodedCharStr = String.fromCharCode(asciiValue);
+
+            // Add the shifted character to the converted strIning
+            decodedCipher += decodedCharStr;
+        } else {
+            // If the character is not alphabetic, simply add it as is
+            decodedCipher += chr;
+        }
+    }
+
+    // Return the converted strIning
+    return decodedCipher;
+}
+
+console.log(rot13("SERR PBQR PNZC")); // FREE CODE CAMP
+console.log(rot13("SERR CVMMN!")); // FREE PIZZA!
+console.log(rot13("SERR YBIR?")); // FREE LOVE?
+console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.")); // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
+console.log(rot13("serr pbqr pnzc 101")); // free code camp 101
+console.log(rot13("orrs pnsr")); // beef cafe
+
