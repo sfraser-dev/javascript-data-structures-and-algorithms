@@ -996,8 +996,8 @@ function palindrome(strIn) {
         .join("")
         .toLowerCase();
     let stringFwdLowercase = alphanumericalString.toLowerCase();
-    console.log(stringRevLowercase);
-    console.log(stringFwdLowercase);
+    // console.log(stringRevLowercase);
+    // console.log(stringFwdLowercase);
     const isPalindrome = stringRevLowercase === stringFwdLowercase;
     return isPalindrome;
 }
@@ -1214,8 +1214,8 @@ console.log("\n--- (Final project 4: Telephone Number Validator)");
 function telephoneCheck(strIn) {
     // delete characters that are not numbers
     const numbersOnly = strIn.replace(/\D/g, "");
-    console.log(numbersOnly);
-    console.log(strIn.split("-").length - 1);
+    // console.log(numbersOnly);
+    // console.log(strIn.split("-").length - 1);
 
     // requirements for 10 digit numebers and for 11 digit numbers to be valid
     if (
@@ -1262,7 +1262,7 @@ function telephoneCheck(strIn) {
         return true;
     }
 
-    // strIn hasn't adhered to any of the acceptable formats, thus rejected 
+    // strIn hasn't adhered to any of the acceptable formats, thus rejected
     return false;
 }
 
@@ -1330,9 +1330,78 @@ console.log("\n--- (Final project 5: Cash Register)");
 //   ["TWENTY", 60],
 //   ["ONE HUNDRED", 100]
 // ]
-function checkCashRegister(price, cash, cid) {
-    let change;
-    return change;
+
+function checkCashRegister(price, cash, cashInDrawer) {
+    
+    // object to store value of each denomination
+    const cashInDrawerObject = {
+        PENNY: 0.01,
+        NICKEL: 0.05,
+        DIME: 0.1,
+        QUARTER: 0.25,
+        ONE: 1,
+        FIVE: 5,
+        TEN: 10,
+        TWENTY: 20,
+        "ONE HUNDRED": 100,
+    };
+
+    // initialise total cash in drawer
+    let totalCashInDrawer = 0;
+    // initialise results object
+    const results = { status: "", change: [] };
+    // change to be given
+    let change = cash - price;
+
+    // calc total cash in drawer
+    for (let c = 0; c < cashInDrawer.length; ++c) {
+        totalCashInDrawer += cashInDrawer[c][1];
+    }
+    // round to 2 decimal places
+    totalCashInDrawer = Math.round(totalCashInDrawer * 100) / 100;
+
+    // manage different situations
+    if (change === totalCashInDrawer) {
+        // close when required change equals total cash in drawer
+        results.status = "CLOSED";
+        results.change = cashInDrawer;
+        return results;
+    } else if (change > totalCashInDrawer) {
+        // insufficient funds when total cash in drawer is less
+        // than required change
+        results.status = "INSUFFICIENT_FUNDS";
+    } else {
+        // calculate the change to give
+        for (let c = cashInDrawer.length - 1; c >= 0; --c) {
+            const denomination = cashInDrawer[c][0];
+            const denominationValue = cashInDrawerObject[denomination];
+            switch (true) {
+                case change >= denominationValue &&
+                    change >= cashInDrawer[c][1]:
+                    // change >= to the denomination value and is
+                    // available in drawer
+                    results.change.push(cashInDrawer[c]);
+                    change -= cashInDrawer[c][1];
+                    change = Math.round(change * 100) / 100;
+                    break;
+                case change >= denominationValue && change < cashInDrawer[c][1]:
+                    // change < the amount available in drawer
+                    const amount =
+                        Math.floor(change / denominationValue) *
+                        denominationValue;
+                    results.change.push([denomination, amount]);
+                    change -= amount;
+                    change = Math.round(change * 100) / 100;
+                    break;
+            }
+        }
+    }
+
+    // change remaining?
+    results.status = change >= 0.01 ? "INSUFFICIENT_FUNDS" : "OPEN";
+    results.change = change >= 0.01 ? [] : results.change;
+
+    return results;
 }
 
 console.log(
