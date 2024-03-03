@@ -1333,7 +1333,7 @@ console.log("\n--- (Final project 5: Cash Register)");
 
 function checkCashRegister(price, cash, cashInDrawer) {
     
-    // object to store value of each denomination
+    // object to store the value of each denomination
     const cashInDrawerObject = {
         PENNY: 0.01,
         NICKEL: 0.05,
@@ -1345,22 +1345,19 @@ function checkCashRegister(price, cash, cashInDrawer) {
         TWENTY: 20,
         "ONE HUNDRED": 100,
     };
+    
+    // calc total cash in drawer via reduce method
+    const totalCashInDrawer = cashInDrawer.reduce((total, denomination) => {
+        return total + denomination[1];
+    }, 0);
 
-    // initialise total cash in drawer
-    let totalCashInDrawer = 0;
     // initialise results object
     const results = { status: "", change: [] };
+
     // change to be given
     let change = cash - price;
 
-    // calc total cash in drawer
-    for (let c = 0; c < cashInDrawer.length; ++c) {
-        totalCashInDrawer += cashInDrawer[c][1];
-    }
-    // round to 2 decimal places
-    totalCashInDrawer = Math.round(totalCashInDrawer * 100) / 100;
-
-    // manage different situations
+    // age different situations
     if (change === totalCashInDrawer) {
         // close when required change equals total cash in drawer
         results.status = "CLOSED";
@@ -1378,14 +1375,14 @@ function checkCashRegister(price, cash, cashInDrawer) {
             switch (true) {
                 case change >= denominationValue &&
                     change >= cashInDrawer[c][1]:
-                    // change >= to the denomination value and is
+                    // change is >= to the denomination value and is
                     // available in drawer
                     results.change.push(cashInDrawer[c]);
                     change -= cashInDrawer[c][1];
                     change = Math.round(change * 100) / 100;
                     break;
                 case change >= denominationValue && change < cashInDrawer[c][1]:
-                    // change < the amount available in drawer
+                    // change is < to the amount available in drawer
                     const amount =
                         Math.floor(change / denominationValue) *
                         denominationValue;
