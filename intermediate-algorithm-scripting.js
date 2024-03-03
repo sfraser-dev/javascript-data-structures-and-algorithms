@@ -989,13 +989,17 @@ function palindrome(strIn) {
     // convert to lower case
     alphanumericalString.toLowerCase();
 
-    // Check if the processed string is equal to its reversed version
-    let str1 = alphanumericalString.split("").reverse().join("").toLowerCase();
-    let str2 = alphanumericalString.toLowerCase();
-    //console.log(str1);
-    //console.log(str2);
-    const isMatch = str1 === str2;
-    return isMatch;
+    // do forward (normal) and reverse version of alphanumericalString match (ie: a palindrome)?
+    let stringRevLowercase = alphanumericalString
+        .split("")
+        .reverse()
+        .join("")
+        .toLowerCase();
+    let stringFwdLowercase = alphanumericalString.toLowerCase();
+    console.log(stringRevLowercase);
+    console.log(stringFwdLowercase);
+    const isPalindrome = stringRevLowercase === stringFwdLowercase;
+    return isPalindrome;
 }
 
 console.log(palindrome("eye")); // true
@@ -1151,7 +1155,7 @@ function rot13(strIn) {
                 // loop around uppercase chars if necessary
                 if (asciiValue - 13 < 65) {
                     asciiValue = 91 - (65 - (asciiValue - 13));
-                // no looping necessary
+                    // no looping necessary
                 } else {
                     asciiValue -= 13;
                 }
@@ -1160,7 +1164,7 @@ function rot13(strIn) {
                 // loop around lowercase chars if necessary
                 if (asciiValue - 13 < 97) {
                     asciiValue = 123 - (97 - (asciiValue - 13));
-                // no looping necessary
+                    // no looping necessary
                 } else {
                     asciiValue -= 13;
                 }
@@ -1189,3 +1193,210 @@ console.log(rot13("SERR YBIR?")); // FREE LOVE?
 console.log(rot13("GUR DHVPX OEBJA SBK WHZCF BIRE GUR YNML QBT.")); // THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG.
 console.log(rot13("serr pbqr pnzc 101")); // free code camp 101
 console.log(rot13("orrs pnsr")); // beef cafe
+
+////////// Final project 4: Telephone Number Validator
+console.log("\n--- (Final project 4: Telephone Number Validator)");
+// Return true if the passed string looks like a valid US phone number.
+// The user may fill out the form field any way they choose as long as it has the format of
+// a valid US number. The following are examples of valid formats for US numbers (refer to the
+// tests below for other variants):
+// 555-555-5555
+// (555)555-5555
+// (555) 555-5555
+// 555 555 5555
+// 5555555555
+// 1 555 555 5555
+// For this challenge you will be presented with a string such as 800-692-7753 or 8oo-six427676;laskdjf.
+// Your job is to validate or reject the US phone number based on any combination of the formats provided
+// above. The area code is required. If the country code is provided, you must confirm that the country
+// code is 1. Return true if the string is a valid US phone number; otherwise return false.
+
+function telephoneCheck(strIn) {
+    // delete characters that are not numbers
+    const numbersOnly = strIn.replace(/\D/g, "");
+    console.log(numbersOnly);
+    console.log(strIn.split("-").length - 1);
+
+    // requirements for 10 digit numebers and for 11 digit numbers to be valid
+    if (
+        (numbersOnly.length === 10 &&
+            // must have less than three hyphens
+            strIn.split("-").length - 1 < 3 &&
+            // cannot have any parenthesis if length is 10
+            !strIn.includes("(") &&
+            !strIn.includes(")")) ||
+        (numbersOnly.length === 11 &&
+            // must have less than three hyphens
+            strIn.split("-").length - 1 < 3 &&
+            // must start with a one if length is 11
+            strIn.startsWith("1") &&
+            // mustn't have single parenthesis (strIn with no parenthesis passes)
+            !strIn.includes("(") &&
+            !strIn.includes(")")) ||
+        (numbersOnly.length === 11 &&
+            // must have less than three hyphens
+            strIn.split("-").length - 1 < 3 &&
+            // must start with a one if length is 11
+            strIn.startsWith("1") &&
+            // mustn't have single parenthesis (strIn with open AND closed parenthesis passes)
+            strIn.includes("(") &&
+            strIn.includes(")"))
+    ) {
+        return true;
+    }
+
+    // check acceptable number formatting using regex
+    if (
+        // match string beginning with an opening parenthesis, followed
+        // by exactly 3 digits, then a closing parenthesis, then
+        // an optional hyphen or space, then exactly 3 digits, then
+        // another optional hyphen or space, then exactly 4 digits at
+        // the end
+        strIn.match(/^\(\d{3}\)[- ]?\d{3}[- ]?\d{4}$/) ||
+        // match string beginning with exactly 3 digits, then an
+        // optional hyphen or space, then exactly 3 digits, then
+        // another optional hyphen or space, then exactly 4 digits at
+        // the end
+        strIn.match(/^\d{3}[- ]?\d{3}[- ]?\d{4}$/)
+    ) {
+        return true;
+    }
+
+    // strIn hasn't adhered to any of the acceptable formats, thus rejected 
+    return false;
+}
+
+console.log(telephoneCheck("1 555-555-5555")); // true
+console.log(telephoneCheck("1 (555) 555-5555")); // true
+console.log(telephoneCheck("5555555555")); // true
+console.log(telephoneCheck("555-555-5555")); // true
+console.log(telephoneCheck("(555)555-5555")); // true
+console.log(telephoneCheck("1(555)555-5555")); // true
+console.log(telephoneCheck("555-5555")); // false
+console.log(telephoneCheck("5555555")); // false
+console.log(telephoneCheck("1 555)555-5555")); // false
+console.log(telephoneCheck("1 555 555 5555")); // true
+console.log(telephoneCheck("1 456 789 4444")); // true
+console.log(telephoneCheck("123**&!!asdf#")); // false
+console.log(telephoneCheck("55555555")); // false
+console.log(telephoneCheck("(6054756961)")); // false
+console.log(telephoneCheck("2 (757) 622-7382")); // false
+console.log(telephoneCheck("0 (757) 622-7382")); // false
+console.log(telephoneCheck("-1 (757) 622-7382")); // false
+console.log(telephoneCheck("2 757 622-7382")); // false
+console.log(telephoneCheck("10 (757) 622-7382")); // false
+console.log(telephoneCheck("27576227382")); // false
+console.log(telephoneCheck("(275)76227382")); // false
+console.log(telephoneCheck("2(757)6227382")); // false
+console.log(telephoneCheck("2(757)622-7382")); // false
+console.log(telephoneCheck("555)-555-5555")); // false
+console.log(telephoneCheck("(555-555-5555")); // false
+console.log(telephoneCheck("(555)5(55?)-5555")); // false
+console.log(telephoneCheck("55 55-55-555-5")); // false
+console.log(telephoneCheck("11 555-555-5555")); // false
+
+////////// Final project 5: Cash Register
+console.log("\n--- (Final project 5: Cash Register)");
+// Design a cash register drawer function checkCashRegister() that accepts purchase price
+// as the first argument (price), payment as the second argument (cash), and cash-in-drawer
+// (cid) as the third argument.
+// cid is a 2D array listing available currency.
+// The checkCashRegister() function should always return an object with a status key and a change key.
+// Return {status: "INSUFFICIENT_FUNDS", change: []} if cash-in-drawer is less than the change due,
+// or if you cannot return the exact change.
+// Return {status: "CLOSED", change: [...]} with cash-in-drawer as the value for the key change if it
+// is equal to the change due.
+// Otherwise, return {status: "OPEN", change: [...]}, with the change due in coins and bills,
+// sorted in highest to lowest order, as the value of the change key.
+//   Currency             Unit    Amount
+//   Penny                $0.01   (PENNY)
+//   Nickel               $0.05   (NICKEL)
+//   Dime                 $0.1    (DIME)
+//   Quarter              $0.25   (QUARTER)
+//   Dollar               $1      (ONE)
+//   Five Dollars         $5      (FIVE)
+//   Ten Dollars          $10     (TEN)
+//   Twenty Dollars       $20     (TWENTY)
+//   One-hundred Dollars  $100    (ONE HUNDRED)
+// See below for an example of a cash-in-drawer array:
+// [
+//   ["PENNY", 1.01],
+//   ["NICKEL", 2.05],
+//   ["DIME", 3.1],
+//   ["QUARTER", 4.25],
+//   ["ONE", 90],
+//   ["FIVE", 55],
+//   ["TEN", 20],
+//   ["TWENTY", 60],
+//   ["ONE HUNDRED", 100]
+// ]
+function checkCashRegister(price, cash, cid) {
+    let change;
+    return change;
+}
+
+console.log(
+    checkCashRegister(19.5, 20, [
+        ["PENNY", 1.01],
+        ["NICKEL", 2.05],
+        ["DIME", 3.1],
+        ["QUARTER", 4.25],
+        ["ONE", 90],
+        ["FIVE", 55],
+        ["TEN", 20],
+        ["TWENTY", 60],
+        ["ONE HUNDRED", 100],
+    ])
+); // {status: "OPEN", change: [["QUARTER", 0.5]]}
+console.log(
+    checkCashRegister(3.26, 100, [
+        ["PENNY", 1.01],
+        ["NICKEL", 2.05],
+        ["DIME", 3.1],
+        ["QUARTER", 4.25],
+        ["ONE", 90],
+        ["FIVE", 55],
+        ["TEN", 20],
+        ["TWENTY", 60],
+        ["ONE HUNDRED", 100],
+    ])
+); // {status: "OPEN", change: [["TWENTY", 60], ["TEN", 20], ["FIVE", 15], ["ONE", 1], ["QUARTER", 0.5], ["DIME", 0.2], ["PENNY", 0.04]]}
+console.log(
+    checkCashRegister(19.5, 20, [
+        ["PENNY", 0.01],
+        ["NICKEL", 0],
+        ["DIME", 0],
+        ["QUARTER", 0],
+        ["ONE", 0],
+        ["FIVE", 0],
+        ["TEN", 0],
+        ["TWENTY", 0],
+        ["ONE HUNDRED", 0],
+    ])
+); // {status: "INSUFFICIENT_FUNDS", change: []}
+console.log(
+    checkCashRegister(19.5, 20, [
+        ["PENNY", 0.01],
+        ["NICKEL", 0],
+        ["DIME", 0],
+        ["QUARTER", 0],
+        ["ONE", 1],
+        ["FIVE", 0],
+        ["TEN", 0],
+        ["TWENTY", 0],
+        ["ONE HUNDRED", 0],
+    ])
+); // {status: "INSUFFICIENT_FUNDS", change: []}
+console.log(
+    checkCashRegister(19.5, 20, [
+        ["PENNY", 0.5],
+        ["NICKEL", 0],
+        ["DIME", 0],
+        ["QUARTER", 0],
+        ["ONE", 0],
+        ["FIVE", 0],
+        ["TEN", 0],
+        ["TWENTY", 0],
+        ["ONE HUNDRED", 0],
+    ])
+); // {status: "CLOSED", change: [["PENNY", 0.5], ["NICKEL", 0], ["DIME", 0], ["QUARTER", 0], ["ONE", 0], ["FIVE", 0], ["TEN", 0], ["TWENTY", 0], ["ONE HUNDRED", 0]]}
