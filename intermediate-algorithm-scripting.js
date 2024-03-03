@@ -1331,8 +1331,9 @@ console.log("\n--- (Final project 5: Cash Register)");
 //   ["ONE HUNDRED", 100]
 // ]
 
+// check cash register and give change
 function checkCashRegister(price, cash, cashInDrawer) {
-    
+
     // object to store the value of each denomination
     const cashInDrawerObject = {
         PENNY: 0.01,
@@ -1345,8 +1346,50 @@ function checkCashRegister(price, cash, cashInDrawer) {
         TWENTY: 20,
         "ONE HUNDRED": 100,
     };
-    
-    // calc total cash in drawer via reduce method
+
+    // calculate the change to give
+    const calculateChange = () => {
+        // loop through each denomination in reverse order
+        for (let c = cashInDrawer.length - 1; c >= 0; --c) {
+            const denomination = cashInDrawer[c][0];
+            const denominationValue = cashInDrawerObject[denomination];
+            // check conditions for giving change
+            switch (true) {
+                // if change is greater than or equal to
+                // the denomination value and there is
+                // enough of this denomination in the drawer
+                case change >= denominationValue &&
+                    change >= cashInDrawer[c][1]:
+                    // add the whole denomination to the change
+                    results.change.push(cashInDrawer[c]);
+                    // subtract this denomination's value from
+                    // the change remaining
+                    change -= cashInDrawer[c][1];
+                    // round to 2 decimal places
+                    change = Math.round(change * 100) / 100;
+                    break;
+                // if change is greater than or equal to
+                // the denomination value but there is not
+                // enough of this denomination in the drawer
+                case change >= denominationValue && change < cashInDrawer[c][1]:
+                    // calculate the maximum amount that can be
+                    // given for this denomination
+                    const amount =
+                        Math.floor(change / denominationValue) *
+                        denominationValue;
+                    // add the partial denomination to the change
+                    results.change.push([denomination, amount]);
+                    // subtract the value of this partial
+                    // denomination from the change remaining
+                    change -= amount;
+                    // round to 2 decimal places
+                    change = Math.round(change * 100) / 100;
+                    break;
+            }
+        }
+    };
+
+    // calc total cash in drawer (via reduce method)
     const totalCashInDrawer = cashInDrawer.reduce((total, denomination) => {
         return total + denomination[1];
     }, 0);
@@ -1354,47 +1397,29 @@ function checkCashRegister(price, cash, cashInDrawer) {
     // initialise results object
     const results = { status: "", change: [] };
 
-    // change to be given
+    // change to be given calculation
     let change = cash - price;
 
-    // age different situations
-    if (change === totalCashInDrawer) {
-        // close when required change equals total cash in drawer
-        results.status = "CLOSED";
-        results.change = cashInDrawer;
-        return results;
-    } else if (change > totalCashInDrawer) {
-        // insufficient funds when total cash in drawer is less
-        // than required change
-        results.status = "INSUFFICIENT_FUNDS";
-    } else {
-        // calculate the change to give
-        for (let c = cashInDrawer.length - 1; c >= 0; --c) {
-            const denomination = cashInDrawer[c][0];
-            const denominationValue = cashInDrawerObject[denomination];
-            switch (true) {
-                case change >= denominationValue &&
-                    change >= cashInDrawer[c][1]:
-                    // change is >= to the denomination value and is
-                    // available in drawer
-                    results.change.push(cashInDrawer[c]);
-                    change -= cashInDrawer[c][1];
-                    change = Math.round(change * 100) / 100;
-                    break;
-                case change >= denominationValue && change < cashInDrawer[c][1]:
-                    // change is < to the amount available in drawer
-                    const amount =
-                        Math.floor(change / denominationValue) *
-                        denominationValue;
-                    results.change.push([denomination, amount]);
-                    change -= amount;
-                    change = Math.round(change * 100) / 100;
-                    break;
-            }
-        }
+    // manage different situations regarding cash in
+    // drawer and change to be given
+    switch (true) {
+        case change === totalCashInDrawer:
+            // if required change equals total cash in drawer
+            results.status = "CLOSED";
+            results.change = cashInDrawer;
+            return results;
+        case change > totalCashInDrawer:
+            // if there are insufficient funds in the drawer
+            // to provide the required change
+            results.status = "INSUFFICIENT_FUNDS";
+            break;
+        default:
+            // calculate the change
+            calculateChange(change, cashInDrawer, cashInDrawerObject, results);
+            break;
     }
 
-    // change remaining?
+    // any change remaining?
     results.status = change >= 0.01 ? "INSUFFICIENT_FUNDS" : "OPEN";
     results.change = change >= 0.01 ? [] : results.change;
 
