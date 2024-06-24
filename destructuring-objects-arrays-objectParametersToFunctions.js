@@ -6,11 +6,11 @@ const HIGH_TEMPERATURES = {
     today: 77,
     tomorrow: 80
 };
-// same variable names 
+// same variable names
 const {today, tomorrow} = HIGH_TEMPERATURES;
 console.log("today="+today);
 console.log("tomorrow="+tomorrow);
-// new variable names 
+// new variable names
 const {today: newToday, tomorrow: newTomorrow} = HIGH_TEMPERATURES;
 console.log("newToday="+newToday);
 console.log("newTomorrow="+newTomorrow);
@@ -57,7 +57,7 @@ const stats = {
     std: 4.32,
     min: 10
 };
-// deconstruct object passed as argument to normal function 
+// deconstruct object passed as argument to normal function
 function half1 (s) {
     const {max, min} = s;
     return (max+min)/2;

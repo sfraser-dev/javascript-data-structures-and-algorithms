@@ -24,7 +24,7 @@ const amountToDelete = 1;
 numbers.splice(startIndex, amountToDelete, 13, 14);
 console.log("numbers=" + numbers);
 
-// splice remove 2 elements from start and add 2 elements in their place  
+// splice remove 2 elements from start and add 2 elements in their place
 console.log("--splice remove 2 elements and add 2 elements");
 console.log((["DarkGoldenRod", "WhiteSmoke", "LavenderBlush", "PaleTurquoise", "FireBrick"]));
 function htmlColorNames(arr) {

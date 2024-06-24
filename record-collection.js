@@ -33,7 +33,7 @@ function updateRecords(records, id, prop, value) {
         // if (!records[id].hasOwnProperty("tracks")) {
         if (! ("tracks" in records[id])) {
             // create new track property if non-existant
-            records[id]["tracks"] = value; 
+            records[id]["tracks"] = value;
         }
         else {
             records[id][prop].push(value);

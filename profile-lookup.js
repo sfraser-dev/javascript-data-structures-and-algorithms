@@ -40,7 +40,7 @@ function lookUpProfile(name, prop) {
             propExists = true;
         }
     }
-    
+
     if (nameExists && propExists) {
         for (let i=0; i<contacts.length; i++) {
             if (contacts[i]["firstName"]===name)

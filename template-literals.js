@@ -8,9 +8,9 @@ const result = {
 
 function makeList() {
     // Only change code below this line
-    
+
     const failureItems = [];
-    
+
     // OBJs = OBJs = SAME
     let failurePropertyRef = result["failure"];
     for (let i=0; i<failurePropertyRef.length; i++){

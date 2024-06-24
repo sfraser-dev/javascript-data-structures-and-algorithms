@@ -116,10 +116,10 @@ console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 // ARRAY: reverse (mutable) arr.reverse(), reverse order of elements in an array
 // ARRAY: toReverse (immutable) new=arr.toReverse(), reverse order of elements in an array
 // ARRAY: pop (off of end) // for pushed arrays, [1,2,3].pop([4,5,6]) // [[1,2,3],[4,5,6]] not flat
-// ARRAY: push (on to end) (mutable) 
+// ARRAY: push (on to end) (mutable)
 // ARRAY: unshift (on to start) (Perl uses unshift to read arguments passed to subroutine)
-// ARRAY: shift (off of start) (mutable) 
-// ARRAY**: join (immutable), newStr=arr.join(seperatorToUseInNewStr) 
+// ARRAY: shift (off of start) (mutable)
+// ARRAY**: join (immutable), newStr=arr.join(seperatorToUseInNewStr)
 //--
 // STRING: concat: (immutable) fullName=firstName.concat(" "+lastName); // "+" str concat shorthand
 // STRING: slice (immutable) newStr=str.slice(start,end), up to end, non inclusive (==substring)
@@ -128,7 +128,7 @@ console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 //--
 // STRING-REVERSE: str.split("").reverse().join("") // split str to arr, rev arr, join arr to str
 //--
-// Notes: 
+// Notes:
 // all strings in JS are immutable (all primitives in JS are immutable)
 // string.slice == string.substring (tiny diff in edge cases), bad design on JS part
 // string.split can take a regular expression as input
@@ -244,7 +244,7 @@ console.log(bouncer(["a", "b", "c"]));
 console.log(bouncer([false, null, 0, NaN, undefined, ""]));
 console.log(bouncer([null, NaN, 1, 2, undefined]));
 
-// sort array then return insert position of num to maintain correct order of numbers 
+// sort array then return insert position of num to maintain correct order of numbers
 console.log("--sort array then return insert position of num to maintain correct order of numbers");
 function getIndexToIns(arr, num) {
 

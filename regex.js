@@ -4,7 +4,7 @@
 // regEx.test(string);  // regEx test calls string
 // string.match(regEx); // string calls regex
 // string.replace(regEx, "replacementString")
-// string.replace(/(\w+)\s(\w+)/, "$2 $1") // swap words around with capture groups 
+// string.replace(/(\w+)\s(\w+)/, "$2 $1") // swap words around with capture groups
 
 // test true or false
 let myString = "Hello, World!";
@@ -72,7 +72,7 @@ myRegex = /[a-z0-9]/ig; // Change this line
 result = quoteSample.match(myRegex); // Change this line
 console.log("result="+result);
 
-// negated set of chars [^abc] - "char set"; 
+// negated set of chars [^abc] - "char set";
 // grab all chars not a number or a vowel
 quoteSample = "3 blind mice.";
 myRegex = /[^0-9aeiou]/g; // Change this line
@@ -86,9 +86,9 @@ myRegex = /s+/g; // Change this line
 result = difficultSpelling.match(myRegex);
 console.log("result="+result);// Only change code below this line
 
-// match chars that occur zero or more times: 
+// match chars that occur zero or more times:
 // * quantifier matches preceding element zero or more times
-let chewieQuote = "Aaaaaaaaaaaaaaaarrrgh!"; 
+let chewieQuote = "Aaaaaaaaaaaaaaaarrrgh!";
 let chewieRegex = /Aa*/; // Change this line
 result = chewieQuote.match(chewieRegex);
 console.log("result="+result);
@@ -135,7 +135,7 @@ let nonAlphabetRegex = /\W/g; // Change this line
 result = quoteSample.match(nonAlphabetRegex); // get all non-alphanumeric
 console.log("result="+result);
 // count all non-alphanumeric (5 spaces and a full-stop)
-result = quoteSample.match(nonAlphabetRegex).length; 
+result = quoteSample.match(nonAlphabetRegex).length;
 console.log("result="+result);
 
 // \d shorthand match all numbers [0-9]
@@ -179,7 +179,7 @@ let userName = "Z97";
 // first char must be letter, second char must be letter (at least one or more of these)
 let userCheck = /^[a-z][a-z]+/i;
 // possibility of having a digit at the end too (occuring 0 or more times)
-userCheck = /^[a-z][a-z]+\d*$/i; 
+userCheck = /^[a-z][a-z]+\d*$/i;
 // OR it's possible to have a letter followed by another two or more numbers
 // (must be two or more numbers as two char usernames can only be letters)
 userCheck = /^[a-z][a-z]+\d*$|^[a-z]\d\d+$/i;
@@ -213,13 +213,13 @@ haStr = "Hazzzzzah";
 haRegex = /Haz{,3}ah/; // no min, max 3
 result = haRegex.test(haStr);
 console.log("result="+result);
-// quantifier: {x,y} quantity specifiers (select a mim amount of times preceding element can repeat 
+// quantifier: {x,y} quantity specifiers (select a mim amount of times preceding element can repeat
 // and a maximum amount of times preceding element can repeat)
 haStr = "Hazzzzzah";
 haRegex = /Haz{3,4}ah/; // min 3, max 4 (false, z repeated 5 times)
 result = haRegex.test(haStr);
 console.log("result="+result);
-// quantifier: {x,y} quantity specifiers (select a mim amount of times preceding element can repeat 
+// quantifier: {x,y} quantity specifiers (select a mim amount of times preceding element can repeat
 // and a maximum amount of times preceding element can repeat)
 haStr = "Hazzzzzah";
 haRegex = /Haz{3,7}ah/; // min 3, max 7 (true, x repeats 5 times, 3 <= x <= 7)
@@ -261,7 +261,7 @@ sampleWord = "banan1";
 // sampleWord = "12345";
 // sampleWord = "1a2bcde";
 // need to check for \D* too, allows for possible non-digits before the digits
-passCheckRegex = /(?=\w{6,})(?=\D*\d{2,})/; 
+passCheckRegex = /(?=\w{6,})(?=\D*\d{2,})/;
 result = passCheckRegex.test(sampleWord);
 console.log("result="+result);
 
@@ -287,7 +287,7 @@ let wsRegex = /\S+\s\S+/g; // grab non white space words
 result = hello.match(wsRegex); // Change this line
 console.log("result="+result);
 // replace the whitespace via JS replace()
-wsRegex = /^\s+|\s+$/g; // 
+wsRegex = /^\s+|\s+$/g; //
 result = hello.replace(wsRegex, ""); // Change this line
 console.log("result="+result);
 

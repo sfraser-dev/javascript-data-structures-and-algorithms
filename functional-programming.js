@@ -11,7 +11,7 @@
 // Should use a immutable function (a "pure" function)
 // See also "basic-algorithm-scripting.js"
 
-//******************************************************************************** 
+//********************************************************************************
 //*** First order functions, higher order functions and lambdas ******************
 
 // Callbacks are functions that are passed to another function
@@ -19,19 +19,19 @@
 // then those functions which were passed in or returned can be called
 // a "lambda"
 
-// Functions that can be saved as a variable, stored in an object, 
+// Functions that can be saved as a variable, stored in an object,
 // passed to a function or returned from a function are called "first
 // class functions"
-// 
+//
 // ALL JS functions are "first class" functions
 
 // Functions that take a function as an argument are called "higher
 // order functions". Examples are map(), filter() and reduce().
 // Note: map() and filter() are special cases of reduce()
 
-//******************************************************************************** 
+//********************************************************************************
 
-// 40 cups of tea for the FCC team 
+// 40 cups of tea for the FCC team
 console.log("\n--- 40 cups of tea for the FCC team (no callbacks)");
 const prepareTea = () => 'greenTea';
 const getTea1 = (numOfCups) => {
@@ -314,7 +314,7 @@ let ar2 = [...ar1];
 console.log(ar1);
 console.log(JSON.stringify(ar2));
 
-////////////////////  
+////////////////////
 // See also notes about array and string methods in basic-algorithm-scripting.js
 // Slice (immutable)
 console.log("\n--- Slice");
@@ -333,7 +333,7 @@ const inputCities = ["Chicago", "Delhi", "Islamabad", "London", "Berlin"];
 let lessCities = nonMutatingSplice(inputCities);
 console.log('["Chicago", "Delhi", "Islamabad", "London", "Berlin"] -> slice(3,4): ' + JSON.stringify(lessCities));
 
-////////////////////  
+////////////////////
 // Concat (works the same on both arrays and strings)
 console.log("\n--- Concat");
 console.log("[1, 2, 3].concat([4, 5, 6]) -> " + JSON.stringify([1, 2, 3].concat([4, 5, 6])));
@@ -346,7 +346,7 @@ const first = [1, 2, 3];
 const second = [4, 5];
 console.log("[1, 2, 3].concat[4,5] -> " + nonMutatingPush(first, second));
 
-////////////////////  
+////////////////////
 // Reduce: reduce(callbackFn, initialValue)
 // You can solve almost any array processing problem using the reduce method.
 // In addition to the callback function, reduce has an additional parameter which takes
@@ -413,7 +413,7 @@ const sumOfAllNolanMoviesImdbRatings = nolanMovies.reduce(function (accumulator,
 }, 0)
 console.log("Average IMDB rating of Nolan movies: " + sumOfAllNolanMoviesImdbRatings / nolanMovies.length);
 
-//////////////////// filter() and map() together 
+//////////////////// filter() and map() together
 // Problem: square an array of numbers, but only square the positive integers
 console.log("Problem: square an array of numbers, but only square the positive integers");
 const squareList = function (arr) {
@@ -424,7 +424,7 @@ const squareList = function (arr) {
 const squaredIntegers = squareList([-3, 4.8, 5, 3, -3.2]);
 console.log("original: [-3, 4.8, 5, 3, -3.2] -> " + JSON.stringify(squaredIntegers));
 
-////////////////////  
+////////////////////
 // Sort (mutable, mutates the array in place)
 // JS sort method sorts alphabetically by default, so use a callback function, called "compareFunction"
 // fix this issue. Array elements are sorted according to the return value of the compareFunction: If
@@ -439,7 +439,7 @@ function nonMutatingSort(arr) {
 }
 console.log("original: [5, 6, 3, 2, 9], sorted: " + nonMutatingSort(globalArraySrt));
 
-////////////////////  
+////////////////////
 // Split
 // The split method splits a string into an array of strings. Remember strings are immutable
 // Split takes an argument for a delimiter.
@@ -447,14 +447,14 @@ console.log("original: [5, 6, 3, 2, 9], sorted: " + nonMutatingSort(globalArrayS
 // array of characters
 console.log("\n--- Split strings via delimiters");
 function splitify(str) {
-    // Regex delimiter "w" is for letters, num (&underscore) 
-    // Regex delimiter "W" is for NON letters, NON num (& NON underscore) 
+    // Regex delimiter "w" is for letters, num (&underscore)
+    // Regex delimiter "W" is for NON letters, NON num (& NON underscore)
     let newArr = str.split(/\W/);
     return newArr;
 }
 console.log(splitify("Hello World,I-am code"));
 
-////////////////////  
+////////////////////
 // Join
 // Joins the elements in an array into a sting using the delimiter argument as the separator
 console.log("\n--- Join");
@@ -470,7 +470,7 @@ console.log("original: 'May-the-force-be-with-you' split().join() combo-> " + se
 console.log("or using replaceAll() instead of split().join()");
 console.log('May-the-force-be-with-you".replaceAll("-", " ") -> ' + 'May-the-force-be-with-you'.replaceAll('-', ' '));
 
-////////////////////  
+////////////////////
 // Url Slug (hyphenate a sentence so it can be an URL slug), don't use replace
 console.log("\n--- URL slug using split and join");
 function urlSlug(title) {
@@ -488,7 +488,7 @@ console.log("'A Mind Needs Books Like A Sword Needs A Whetstone' -> " + urlSlug(
 console.log("' Winter is  Coming   ' -> " + urlSlug(" Winter is  Coming   "));
 console.log("'Hold The Door' -> " + urlSlug("Hold The Door"));
 
-////////////////////  
+////////////////////
 // The every method
 // every() works with arrays to check if EVERY element passes a particular test.
 // It returns a BOOLEAN value - true if all values meet the criteria, false if not.
@@ -502,7 +502,7 @@ function checkPositiveAll(arr) {
 }
 console.log("checkPositive([1, 2, 3, -4, 5] via every() -> " + checkPositiveAll([1, 2, 3, -4, 5]));
 
-////////////////////  
+////////////////////
 // The some method
 // some() works with arrays to check if SOME element passes a particular test.
 // It returns a BOOLEAN value - true if ANY value meets the criteria, false if not.

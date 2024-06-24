@@ -22,8 +22,8 @@ function countdownForLoop (n) {
 }
 
 console.log("---------- recursion");
-console.log(countdown(10)); 
-console.log(countdown(5)); 
+console.log(countdown(10));
+console.log(countdown(5));
 console.log("---------- for loop");
-console.log(countdownForLoop(10)); 
-console.log(countdownForLoop(5)); 
+console.log(countdownForLoop(10));
+console.log(countdownForLoop(5));

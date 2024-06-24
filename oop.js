@@ -2,7 +2,7 @@
 
 // Classes are syntactical sugar added in ECMAScript 6 over the existing
 // prototype based inheritance. Classes provide a much simplier and cleaner
-// syntax to create objects and deal with inheritance. 
+// syntax to create objects and deal with inheritance.
 // See the ES6 section entitled "Use class Syntax to Define a Constructor Function"
 
 // 1. objects
@@ -12,7 +12,7 @@
 // 5. Dog3.prototype.numLegs = 4; constructor functions have the prototype property,
 //       these prototype properties are shared amoung all
 //       instances of the object (all instances have same value)
-// 6: prototype properties (of constructor functions) can be set all at once via an object  
+// 6: prototype properties (of constructor functions) can be set all at once via an object
 // 7. ChildObject.prototype=Object.create(ParentObject.prototype) is better than "new"
 //       keyword for creating object instances
 
@@ -136,7 +136,7 @@ console.log("\n--- Change the prototype to a new object (prototype values in an 
 function Dog6(name) {
     this.name = name;
 }
-// Beware, using new object to manually define prototype properties ERASES the constructor property! 
+// Beware, using new object to manually define prototype properties ERASES the constructor property!
 // Prototype object
 Dog6.prototype = {
     // Define the constructor property here so it fixed the ERASING issue.
@@ -198,7 +198,7 @@ Bird.prototype.constructor = Bird;
 Bird.prototype.fly = function () {
     console.log("I'm flying!");
 }
-// Bird can now eat and fly 
+// Bird can now eat and fly
 let duck = new Bird();
 console.log("duck is about to eat (Animal prototype function)...");
 duck.eat()
