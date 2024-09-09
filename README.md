@@ -7,4 +7,4 @@
 - Algorithm Scripting
 - Object Oriented Programming
 - Functional Programming
-- FCC Course
+- freeCodeCamp Certificate Course
