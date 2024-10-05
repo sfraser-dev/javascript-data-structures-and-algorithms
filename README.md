@@ -10,3 +10,4 @@
 - Functional Programming
 - Intermediate Algorithm Scripting
 - FCC Certificate Course
+
