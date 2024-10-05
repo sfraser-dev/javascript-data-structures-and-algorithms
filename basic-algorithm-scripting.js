@@ -202,7 +202,7 @@ console.log(titleCase("sHoRt AnD sToUt"));
 console.log(titleCase("HERE IS MY HANDLE HERE IS MY SPOUT"));
 
 // AGAIN USING REGEX:
-// capitalise all the first letters in a sentence (alsorest of the sentence to lower case)
+// capitalise all the first letters in a sentence (also rest of the sentence to lower case)
 // RegEx explanation
 // Find all non-whitespace characters (\S)
 // At the beginning of string (^) or after any whitespace character (\s)

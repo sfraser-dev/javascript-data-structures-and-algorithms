@@ -1,10 +1,12 @@
 # JavaScript Data Structures and Algorithms
 
+- Basic JavaScript
 - ECMAScript 6
 - Regular Expressions
 - Debugging
-- Data Structures
-- Algorithm Scripting
+- Basic Data Structures
+- Basic Algorithm Scripting
 - Object Oriented Programming
 - Functional Programming
-- freeCodeCamp Certificate Course
+- Intermediate Algorithm Scripting
+- FCC Certificate Course
