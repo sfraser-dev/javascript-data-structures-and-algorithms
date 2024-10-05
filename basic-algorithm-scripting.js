@@ -1,5 +1,32 @@
 "use strict";
 
+// Notes:
+// ARRAY: concat: (immutable) let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6], flat single array
+// ARRAY: slice (immutable) new=arr.slice(start, end) // start(0) & end(end) optional
+// ARRAY: splice (mutable) arr.splice(start, amountToDelete, 13, 14); // 13,14 added
+// ARRAY: reverse (mutable) arr.reverse(), reverse order of elements in an array
+// ARRAY: toReverse (immutable) new=arr.toReverse(), reverse order of elements in an array
+// ARRAY: pop (off of end) // for pushed arrays, [1,2,3].pop([4,5,6]) // [[1,2,3],[4,5,6]] not flat
+// ARRAY: push (on to end) (mutable)
+// ARRAY: unshift (on to start) (Perl uses unshift to read arguments passed to subroutine)
+// ARRAY: shift (off of start) (mutable)
+// ARRAY**: join (immutable), newStr=arr.join(seperatorToUseInNewStr)
+//--
+// STRING: concat: (immutable) fullName=firstName.concat(" "+lastName); // "+" str concat shorthand
+// STRING: slice (immutable) newStr=str.slice(start,end), up to end, non inclusive (==substring)
+// STRING: substring (immutable) newStr=str.substring(start,end), up to end, non inclusive (==slice)
+// STRING**: newArr=str.split(separator) (immutable) // arr words split(" "), arr of chars split("")
+//--
+// STRING-REVERSE: str.split("").reverse().join("") // split str to arr, rev arr, join arr to str
+//--
+// Notes:
+// all strings in JS are immutable (all primitives in JS are immutable)
+// string.slice == string.substring (tiny diff in edge cases), bad design on JS part
+// string.split can take a regular expression as input
+// arr.sort((a,b) => a-b); // need the arrow function as it sorts the array alphabetically by default
+// See also "functional-programming.js", it too has examples of these (and other) array and string methods
+// "functional-programming.js" says best not to use mutable mthods whenever possible
+
 // fahrenheit to celsius
 console.log("--fahrenheit to celsius");
 function convertCtoF(celsius) {
@@ -110,32 +137,6 @@ console.log("repeat abc 3 = " + repeatStringNumTimes("abc", 3));
 console.log("repeat abc 4 = " + repeatStringNumTimes("abc", 4));
 console.log("repeat abc -2 = " + repeatStringNumTimes("abc", -2));
 
-// ARRAY: concat: (immutable) let bigArr = [1,2,3].concat([4,5,6]); // [1,2,3,4,5,6], flat single array
-// ARRAY: slice (immutable) new=arr.slice(start, end) // start(0) & end(end) optional
-// ARRAY: splice (mutable) arr.splice(start, amountToDelete, 13, 14); // 13,14 added
-// ARRAY: reverse (mutable) arr.reverse(), reverse order of elements in an array
-// ARRAY: toReverse (immutable) new=arr.toReverse(), reverse order of elements in an array
-// ARRAY: pop (off of end) // for pushed arrays, [1,2,3].pop([4,5,6]) // [[1,2,3],[4,5,6]] not flat
-// ARRAY: push (on to end) (mutable)
-// ARRAY: unshift (on to start) (Perl uses unshift to read arguments passed to subroutine)
-// ARRAY: shift (off of start) (mutable)
-// ARRAY**: join (immutable), newStr=arr.join(seperatorToUseInNewStr)
-//--
-// STRING: concat: (immutable) fullName=firstName.concat(" "+lastName); // "+" str concat shorthand
-// STRING: slice (immutable) newStr=str.slice(start,end), up to end, non inclusive (==substring)
-// STRING: substring (immutable) newStr=str.substring(start,end), up to end, non inclusive (==slice)
-// STRING**: newArr=str.split(separator) (immutable) // arr words split(" "), arr of chars split("")
-//--
-// STRING-REVERSE: str.split("").reverse().join("") // split str to arr, rev arr, join arr to str
-//--
-// Notes:
-// all strings in JS are immutable (all primitives in JS are immutable)
-// string.slice == string.substring (tiny diff in edge cases), bad design on JS part
-// string.split can take a regular expression as input
-// arr.sort((a,b) => a-b); // need the arrow function as it sorts the array alphabetically by default
-// See also "functional-programming.js", it too has examples of these (and other) array and string methods
-// "functional-programming.js" says best not to use mutable mthods whenever possible
-//
 // truncate a string (I'm trying it without a for loop - practice JS methods)
 console.log("--truncate a string using JS methods");
 function truncateString(str, num) {

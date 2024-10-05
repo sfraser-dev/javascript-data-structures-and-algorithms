@@ -1,5 +1,20 @@
 "use strict";
 
+// Notes: Methods used
+// reduce()
+// concat()
+// new Set()
+// indexOf()
+// push()  [mutable]
+// Array.from(arguments) [create an array from the arguments passed to a function]
+// slice() [mutable]
+// includes()
+// Object.keys(obj) [get the keys from Object obj as an array]
+// filter()
+// replace(/(group1)(group2)/g, "$1 $2") [$1 is group1 match, $2 is group2 match]
+// toLowerCase()
+
+
 ////////////////////
 // We'll pass you an array of two numbers. Return the sum of those two numbers plus the
 // sum of all the numbers between them. The lowest number will not always come first.
@@ -157,20 +172,6 @@ console.log(
         { apple: 1, cookie: 2 }
     )
 );
-
-//// Methods used
-// reduce()
-// concat()
-// new Set()
-// indexOf()
-// push()  [mutable]
-// Array.from(arguments) [create an array from the arguments passed to a function]
-// slice() [mutable]
-// includes()
-// Object.keys(obj) [get the keys from Object obj as an array]
-// filter()
-// replace(/(group1)(group2)/g, "$1 $2") [$1 is group1 match, $2 is group2 match]
-// toLowerCase()
 
 ////////////////////
 // Convert a string to spinal case. Spinal case is all-lowercase-words-joined-by-dashes.
